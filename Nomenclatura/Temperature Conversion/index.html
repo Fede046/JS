@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            margin: 2rem;
+            justify-content: center;
+        }
+
+        #myDiv{
+            display: flex;
+            flex-direction: column;
+            gap:1rem;
+            width: 50%;
+            padding: 2rem ;
+            border: 2px solid gray;
+            text-align: center;
+            align-items: center;
+        }
+        #myButton{
+            background-color: red;
+            color: white;
+            transition: all 0.3s;
+            height: 2rem;
+            width: 50%;
+        }
+        #myButton:hover{
+            background-color: rgb(229, 157, 157);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="myDiv">
+        <h1 id="myH1">Temperature Coversion:</h1>
+        <input id="myInput" type="number" value="0">
+        <p><input type="radio" id="toFahre" name="conversione"> Celsius -> Fahrenheit </p>
+        <p><input type="radio" id="toCelsius"name="conversione"> Fahrenheit -> Celsius </p>
+        <button id="myButton">Submit</button>
+        <p id="myOutput" type="text"> </p>
+    </div>
+
+    
+    <script src="index.js"></script>
+</body>
+</html>

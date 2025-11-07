@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.2rem;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .progress-container {
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #718096;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-section h2 {
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select {
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .history-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .history-section h2 {
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+        }
+
+        .history-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .history-table th {
+            background: #f7fafc;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .history-table tr:hover {
+            background: #f7fafc;
+        }
+
+        .workout-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .badge-cardio {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .badge-strength {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+
+        .badge-flexibility {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+
+        .badge-sports {
+            background: #feebc8;
+            color: #c05621;
+        }
+
+        .delete-btn {
+            padding: 0.3rem 0.8rem;
+            background: #fc8181;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .delete-btn:hover {
+            background: #f56565;
+        }
+
+        .streak-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .streak-icon {
+            font-size: 2.5rem;
+        }
+
+        .streak-info {
+            flex: 1;
+        }
+
+        .streak-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f59e0b;
+        }
+
+        .chart-container {
+            margin-top: 1.5rem;
+            position: relative;
+            height: 200px;
+        }
+
+        .chart-bars {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 100%;
+            gap: 0.5rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, #667eea, #764ba2);
+            border-radius: 8px 8px 0 0;
+            min-width: 30px;
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: #718096;
+            white-space: nowrap;
+        }
+
+        .chart-bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #718096;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .bmi-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .bmi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .bmi-category {
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .history-table {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💪 Fitness Tracker</h1>
+            <p>Monitora i tuoi progressi e raggiungi i tuoi obiettivi</p>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Calorie Oggi</div>
+                    <div class="card-icon">🔥</div>
+                </div>
+                <div class="stat-value" id="calories-today">0</div>
+                <div class="stat-label">kcal bruciate</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="calories-progress"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Obiettivo: 500 kcal</span>
+                        <span id="calories-percent">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Allenamenti Settimana</div>
+                    <div class="card-icon">🏋️</div>
+                </div>
+                <div class="stat-value" id="workouts-week">0</div>
+                <div class="stat-label">sessioni</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="workouts-progress"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Obiettivo: 5 sessioni</span>
+                        <span id="workouts-percent">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Tempo Totale</div>
+                    <div class="card-icon">⏱️</div>
+                </div>
+                <div class="stat-value" id="time-week">0</div>
+                <div class="stat-label">minuti questa settimana</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="time-progress"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Obiettivo: 300 min</span>
+                        <span id="time-percent">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Serie di Successi</div>
+                    <div class="card-icon">🔥</div>
+                </div>
+                <div class="streak-container">
+                    <div class="streak-icon">🏆</div>
+                    <div class="streak-info">
+                        <div class="streak-number" id="current-streak">0</div>
+                        <div class="stat-label">giorni consecutivi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Workout Form -->
+        <div class="form-section">
+            <h2>📝 Registra Allenamento</h2>
+            <form id="workout-form">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Data</label>
+                        <input type="date" id="workout-date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Tipo Allenamento</label>
+                        <select id="workout-type" required>
+                            <option value="cardio">Cardio</option>
+                            <option value="strength">Forza</option>
+                            <option value="flexibility">Flessibilità</option>
+                            <option value="sports">Sport</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Durata (minuti)</label>
+                        <input type="number" id="workout-duration" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Calorie Bruciate</label>
+                        <input type="number" id="workout-calories" min="0" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Aggiungi Allenamento</button>
+            </form>
+        </div>
+
+        <!-- BMI Calculator -->
+        <div class="form-section">
+            <h2>⚖️ Calcolo BMI</h2>
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>Peso (kg)</label>
+                    <input type="number" id="weight" step="0.1" min="1">
+                </div>
+                <div class="input-group">
+                    <label>Altezza (cm)</label>
+                    <input type="number" id="height" min="1">
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="calculateBMI()">Calcola BMI</button>
+            <div id="bmi-result" class="bmi-result" style="display: none;">
+                <div class="bmi-value" id="bmi-value"></div>
+                <div class="bmi-category" id="bmi-category"></div>
+            </div>
+        </div>
+
+        <!-- Weekly Chart -->
+        <div class="form-section">
+            <h2>📊 Attività Settimanale</h2>
+            <div class="chart-container">
+                <div class="chart-bars" id="weekly-chart"></div>
+            </div>
+        </div>
+
+        <!-- Workout History -->
+        <div class="history-section">
+            <h2>📜 Storico Allenamenti</h2>
+            <div class="history-filters">
+                <button class="filter-btn active" onclick="filterHistory('all')">Tutti</button>
+                <button class="filter-btn" onclick="filterHistory('cardio')">Cardio</button>
+                <button class="filter-btn" onclick="filterHistory('strength')">Forza</button>
+                <button class="filter-btn" onclick="filterHistory('flexibility')">Flessibilità</button>
+                <button class="filter-btn" onclick="filterHistory('sports')">Sport</button>
+            </div>
+            <div id="history-container"></div>
+        </div>
+    </div>
+
+    <script>
+        let workouts = JSON.parse(localStorage.getItem('workouts')) || [];
+        let currentFilter = 'all';
+
+        // Set today's date as default
+        document.getElementById('workout-date').valueAsDate = new Date();
+
+        // Form submission
+        document.getElementById('workout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const workout = {
+                id: Date.now(),
+                date: document.getElementById('workout-date').value,
+                type: document.getElementById('workout-type').value,
+                duration: parseInt(document.getElementById('workout-duration').value),
+                calories: parseInt(document.getElementById('workout-calories').value)
+            };
+            
+            workouts.push(workout);
+            saveWorkouts();
+            updateDashboard();
+            renderHistory();
+            e.target.reset();
+            document.getElementById('workout-date').valueAsDate = new Date();
+            
+            alert('✅ Allenamento registrato con successo!');
+        });
+
+        function updateDashboard() {
+            const today = new Date().toISOString().split('T')[0];
+            const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            
+            // Today's calories
+            const todayWorkouts = workouts.filter(w => w.date === today);
+            const todayCalories = todayWorkouts.reduce((sum, w) => sum + w.calories, 0);
+            document.getElementById('calories-today').textContent = todayCalories;
+            
+            const caloriesPercent = Math.min((todayCalories / 500) * 100, 100);
+            document.getElementById('calories-progress').style.width = caloriesPercent + '%';
+            document.getElementById('calories-percent').textContent = Math.round(caloriesPercent) + '%';
+            
+            // Week's workouts
+            const weekWorkouts = workouts.filter(w => w.date >= weekAgo);
+            document.getElementById('workouts-week').textContent = weekWorkouts.length;
+            
+            const workoutsPercent = Math.min((weekWorkouts.length / 5) * 100, 100);
+            document.getElementById('workouts-progress').style.width = workoutsPercent + '%';
+            document.getElementById('workouts-percent').textContent = Math.round(workoutsPercent) + '%';
+            
+            // Week's time
+            const weekTime = weekWorkouts.reduce((sum, w) => sum + w.duration, 0);
+            document.getElementById('time-week').textContent = weekTime;
+            
+            const timePercent = Math.min((weekTime / 300) * 100, 100);
+            document.getElementById('time-progress').style.width = timePercent + '%';
+            document.getElementById('time-percent').textContent = Math.round(timePercent) + '%';
+            
+            // Calculate streak
+            calculateStreak();
+            
+            // Update weekly chart
+            updateWeeklyChart();
+        }
+
+        function calculateStreak() {
+            if (workouts.length === 0) {
+                document.getElementById('current-streak').textContent = '0';
+                return;
+            }
+            
+            const sortedWorkouts = [...workouts].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const uniqueDates = [...new Set(sortedWorkouts.map(w => w.date))];
+            
+            let streak = 0;
+            let currentDate = new Date();
+            
+            for (let date of uniqueDates) {
+                const workoutDate = new Date(date);
+                const diffDays = Math.floor((currentDate - workoutDate) / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === streak || (streak === 0 && diffDays === 0)) {
+                    streak++;
+                    currentDate = workoutDate;
+                } else {
+                    break;
+                }
+            }
+            
+            document.getElementById('current-streak').textContent = streak;
+        }
+
+        function updateWeeklyChart() {
+            const days = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+            const today = new Date();
+            const chartData = [];
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                
+                const dayWorkouts = workouts.filter(w => w.date === dateStr);
+                const totalMinutes = dayWorkouts.reduce((sum, w) => sum + w.duration, 0);
+                
+                chartData.push({
+                    day: days[date.getDay()],
+                    minutes: totalMinutes
+                });
+            }
+            
+            const maxMinutes = Math.max(...chartData.map(d => d.minutes), 60);
+            const chartContainer = document.getElementById('weekly-chart');
+            
+            chartContainer.innerHTML = chartData.map(data => {
+                const height = (data.minutes / maxMinutes) * 100;
+                return `
+                    <div class="chart-bar" style="height: ${height}%">
+                        <div class="chart-bar-value">${data.minutes}</div>
+                        <div class="chart-bar-label">${data.day}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('history-container');
+            
+            let filteredWorkouts = workouts;
+            if (currentFilter !== 'all') {
+                filteredWorkouts = workouts.filter(w => w.type === currentFilter);
+            }
+            
+            if (filteredWorkouts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <h3>Nessun allenamento registrato</h3>
+                        <p>Inizia ad aggiungere i tuoi allenamenti!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const sortedWorkouts = [...filteredWorkouts].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const typeLabels = {
+                cardio: 'Cardio',
+                strength: 'Forza',
+                flexibility: 'Flessibilità',
+                sports: 'Sport'
+            };
+            
+            container.innerHTML = `
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Durata</th>
+                            <th>Calorie</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${sortedWorkouts.map(workout => `
+                            <tr>
+                                <td>${new Date(workout.date).toLocaleDateString('it-IT')}</td>
+                                <td><span class="workout-badge badge-${workout.type}">${typeLabels[workout.type]}</span></td>
+                                <td>${workout.duration} min</td>
+                                <td>${workout.calories} kcal</td>
+                                <td><button class="delete-btn" onclick="deleteWorkout(${workout.id})">Elimina</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function filterHistory(type) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderHistory();
+        }
+
+        function deleteWorkout(id) {
+            if (confirm('Sei sicuro di voler eliminare questo allenamento?')) {
+                workouts = workouts.filter(w => w.id !== id);
+                saveWorkouts();
+                updateDashboard();
+                renderHistory();
+            }
+        }
+
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100; // Convert to meters
+            
+            if (!weight || !height) {
+                alert('Inserisci peso e altezza!');
+                return;
+            }
+            
+            const bmi = (weight / (height * height)).toFixed(1);
+            document.getElementById('bmi-value').textContent = bmi;
+            
+            let category = '';
+            let color = '';
+            
+            if (bmi < 18.5) {
+                category = 'Sottopeso';
+                color = '#3b82f6';
+            } else if (bmi < 25) {
+                category = 'Peso normale';
+                color = '#10b981';
+            } else if (bmi < 30) {
+                category = 'Sovrappeso';
+                color = '#f59e0b';
+            } else {
+                category = 'Obesità';
+                color = '#ef4444';
+            }
+            
+            const resultDiv = document.getElementById('bmi-result');
+            resultDiv.style.display = 'block';
+            document.getElementById('bmi-category').textContent = category;
+            document.getElementById('bmi-value').style.color = color;
+        }
+
+        function saveWorkouts() {
+            localStorage.setItem('workouts', JSON.stringify(workouts));
+        }
+
+        // Initial render
+        updateDashboard();
+        renderHistory();
+    </script>
+</body>
+</html>

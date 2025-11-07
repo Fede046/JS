@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 3rem;
+        }
+
+        .start-screen, .quiz-screen, .result-screen {
+            display: none;
+        }
+
+        .start-screen.active, .quiz-screen.active, .result-screen.active {
+            display: block;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .difficulty-selection {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .difficulty-btn {
+            padding: 1rem 2rem;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .difficulty-btn:hover, .difficulty-btn.selected {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .start-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .question-counter {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #764ba2;
+        }
+
+        .timer.warning {
+            color: #e74c3c;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .answers {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .answer-btn {
+            padding: 1.2rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            color: #2c3e50;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: left;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-btn:hover:not(.correct):not(.wrong) {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .answer-btn.correct {
+            background: #2ecc71;
+            color: white;
+            border-color: #2ecc71;
+            animation: correctAnim 0.5s;
+        }
+
+        .answer-btn.wrong {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+            animation: wrongAnim 0.5s;
+        }
+
+        @keyframes correctAnim {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes wrongAnim {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .answer-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .next-btn {
+            display: none;
+            width: 100%;
+            padding: 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background 0.3s;
+        }
+
+        .next-btn.visible {
+            display: block;
+        }
+
+        .next-btn:hover {
+            background: #764ba2;
+        }
+
+        .result-container {
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .result-message {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 2rem 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+        }
+
+        .highscores {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .highscore-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .highscore-item:last-child {
+            border-bottom: none;
+        }
+
+        .restart-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .difficulty-selection {
+                flex-direction: column;
+            }
+
+            .question {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div class="start-screen active">
+            <h1>🧠 Quiz Challenge</h1>
+            <p style="text-align: center; color: #7f8c8d; margin-bottom: 2rem;">
+                Scegli la difficoltà e metti alla prova le tue conoscenze!
+            </p>
+            <div class="difficulty-selection">
+                <button class="difficulty-btn selected" data-difficulty="easy">
+                    😊 Facile
+                </button>
+                <button class="difficulty-btn" data-difficulty="medium">
+                    🤔 Medio
+                </button>
+                <button class="difficulty-btn" data-difficulty="hard">
+                    🔥 Difficile
+                </button>
+            </div>
+            <button class="start-btn" onclick="startQuiz()">Inizia Quiz</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div class="quiz-screen">
+            <div class="quiz-header">
+                <div class="question-counter">
+                    Domanda <span id="current-question">1</span> di <span id="total-questions">10</span>
+                </div>
+                <div class="timer" id="timer">30</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            <div class="question" id="question"></div>
+            <div class="answers" id="answers"></div>
+            <button class="next-btn" id="next-btn" onclick="nextQuestion()">
+                Prossima Domanda →
+            </button>
+        </div>
+
+        <!-- Result Screen -->
+        <div class="result-screen">
+            <h1>🎉 Quiz Completato!</h1>
+            <div class="score-circle" id="final-score">0%</div>
+            <div class="result-message" id="result-message"></div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="correct-answers">0</div>
+                    <div class="stat-label">Corrette</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="wrong-answers">0</div>
+                    <div class="stat-label">Sbagliate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="time-taken">0s</div>
+                    <div class="stat-label">Tempo Totale</div>
+                </div>
+            </div>
+            <div class="highscores">
+                <h3 style="text-align: center; margin-bottom: 1rem;">🏆 Migliori Punteggi</h3>
+                <div id="highscores-list"></div>
+            </div>
+            <button class="restart-btn" onclick="restartQuiz()">Rigioca</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = {
+            easy: [
+                {
+                    question: "Qual è la capitale dell'Italia?",
+                    answers: ["Roma", "Milano", "Napoli", "Torino"],
+                    correct: 0
+                },
+                {
+                    question: "Quanti giorni ha un anno bisestile?",
+                    answers: ["364", "365", "366", "367"],
+                    correct: 2
+                },
+                {
+                    question: "Qual è il pianeta più vicino al Sole?",
+                    answers: ["Venere", "Terra", "Mercurio", "Marte"],
+                    correct: 2
+                },
+                {
+                    question: "Chi ha dipinto la Gioconda?",
+                    answers: ["Michelangelo", "Leonardo da Vinci", "Raffaello", "Caravaggio"],
+                    correct: 1
+                },
+                {
+                    question: "Quale animale è il simbolo del WWF?",
+                    answers: ["Elefante", "Tigre", "Panda", "Balena"],
+                    correct: 2
+                },
+                {
+                    question: "Quanti continenti ci sono?",
+                    answers: ["5", "6", "7", "8"],
+                    correct: 2
+                },
+                {
+                    question: "Qual è l'oceano più grande?",
+                    answers: ["Atlantico", "Pacifico", "Indiano", "Artico"],
+                    correct: 1
+                },
+                {
+                    question: "In che anno è caduto il Muro di Berlino?",
+                    answers: ["1987", "1988", "1989", "1990"],
+                    correct: 2
+                },
+                {
+                    question: "Qual è il fiume più lungo d'Italia?",
+                    answers: ["Tevere", "Po", "Arno", "Adige"],
+                    correct: 1
+                },
+                {
+                    question: "Quante corde ha una chitarra classica?",
+                    answers: ["4", "5", "6", "7"],
+                    correct: 2
+                }
+            ],
+            medium: [
+                {
+                    question: "Chi ha scritto 'La Divina Commedia'?",
+                    answers: ["Petrarca", "Boccaccio", "Dante Alighieri", "Ariosto"],
+                    correct: 2
+                },
+                {
+                    question: "Qual è l'elemento chimico con simbolo Au?",
+                    answers: ["Argento", "Alluminio", "Oro", "Arsenico"],
+                    correct: 2
+                },
+                {
+                    question: "In che anno è scoppiata la Prima Guerra Mondiale?",
+                    answers: ["1912", "1914", "1916", "1918"],
+                    correct: 1
+                },
+                {
+                    question: "Qual è la montagna più alta d'Europa?",
+                    answers: ["Monte Bianco", "Monte Rosa", "Elbrus", "Matterhorn"],
+                    correct: 2
+                },
+                {
+                    question: "Chi ha inventato la lampadina?",
+                    answers: ["Nikola Tesla", "Thomas Edison", "Alexander Bell", "Benjamin Franklin"],
+                    correct: 1
+                },
+                {
+                    question: "Qual è la velocità della luce?",
+                    answers: ["299.792 km/s", "300.000 km/s", "299.000 km/s", "301.000 km/s"],
+                    correct: 0
+                },
+                {
+                    question: "In quale città si trova la Torre Pendente?",
+                    answers: ["Firenze", "Roma", "Pisa", "Venezia"],
+                    correct: 2
+                },
+                {
+                    question: "Quante ossa ha il corpo umano adulto?",
+                    answers: ["196", "206", "216", "226"],
+                    correct: 1
+                },
+                {
+                    question: "Chi ha dipinto 'La Notte Stellata'?",
+                    answers: ["Monet", "Van Gogh", "Picasso", "Dalí"],
+                    correct: 1
+                },
+                {
+                    question: "Qual è il deserto più grande del mondo?",
+                    answers: ["Sahara", "Gobi", "Antartide", "Arabico"],
+                    correct: 2
+                }
+            ],
+            hard: [
+                {
+                    question: "Qual è il numero atomico del Carbonio?",
+                    answers: ["4", "6", "8", "12"],
+                    correct: 1
+                },
+                {
+                    question: "Chi ha vinto il Premio Nobel per la Letteratura nel 1997?",
+                    answers: ["Dario Fo", "José Saramago", "Günter Grass", "Toni Morrison"],
+                    correct: 0
+                },
+                {
+                    question: "Qual è la costante di Planck?",
+                    answers: ["6.626×10⁻³⁴ J·s", "9.81 m/s²", "3.14159", "2.718"],
+                    correct: 0
+                },
+                {
+                    question: "In che anno è stata fondata la NASA?",
+                    answers: ["1955", "1958", "1961", "1969"],
+                    correct: 1
+                },
+                {
+                    question: "Chi ha composto 'Le Quattro Stagioni'?",
+                    answers: ["Bach", "Mozart", "Vivaldi", "Beethoven"],
+                    correct: 2
+                },
+                {
+                    question: "Qual è la capitale del Kazakistan?",
+                    answers: ["Almaty", "Astana", "Bishkek", "Tashkent"],
+                    correct: 1
+                },
+                {
+                    question: "Quanti elementi ha la tavola periodica?",
+                    answers: ["108", "112", "116", "118"],
+                    correct: 3
+                },
+                {
+                    question: "Chi ha sviluppato la teoria della relatività generale?",
+                    answers: ["Newton", "Einstein", "Hawking", "Bohr"],
+                    correct: 1
+                },
+                {
+                    question: "Qual è il punto più profondo dell'oceano?",
+                    answers: ["Fossa di Porto Rico", "Fossa delle Marianne", "Fossa di Java", "Fossa delle Tonga"],
+                    correct: 1
+                },
+                {
+                    question: "In che anno è stata inventata la stampa a caratteri mobili?",
+                    answers: ["1440", "1450", "1455", "1460"],
+                    correct: 2
+                }
+            ]
+        };
+
+        let currentDifficulty = 'easy';
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 30;
+        let totalTime = 0;
+        let startTime;
+
+        // Difficulty selection
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                currentDifficulty = btn.dataset.difficulty;
+            });
+        });
+
+        function startQuiz() {
+            currentQuestions = shuffleArray([...questions[currentDifficulty]]);
+            currentQuestionIndex = 0;
+            score = 0;
+            totalTime = 0;
+            startTime = Date.now();
+            
+            document.querySelector('.start-screen').classList.remove('active');
+            document.querySelector('.quiz-screen').classList.add('active');
+            
+            showQuestion();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function showQuestion() {
+            const question = currentQuestions[currentQuestionIndex];
+            document.getElementById('question').textContent = question.question;
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            document.getElementById('total-questions').textContent = currentQuestions.length;
+            
+            const progress = ((currentQuestionIndex) / currentQuestions.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            
+            const answersContainer = document.getElementById('answers');
+            answersContainer.innerHTML = '';
+            
+            question.answers.forEach((answer, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = answer;
+                btn.onclick = () => selectAnswer(index);
+                answersContainer.appendChild(btn);
+            });
+            
+            startTimer();
+            document.getElementById('next-btn').classList.remove('visible');
+        }
+
+        function startTimer() {
+            timeLeft = currentDifficulty === 'easy' ? 30 : currentDifficulty === 'medium' ? 20 : 15;
+            document.getElementById('timer').textContent = timeLeft;
+            document.getElementById('timer').classList.remove('warning');
+            
+            clearInterval(timer);
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+                
+                if (timeLeft <= 5) {
+                    document.getElementById('timer').classList.add('warning');
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    selectAnswer(-1);
+                }
+            }, 1000);
+        }
+
+        function selectAnswer(selectedIndex) {
+            clearInterval(timer);
+            
+            const question = currentQuestions[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.answer-btn');
+            
+            buttons.forEach((btn, index) => {
+                btn.disabled = true;
+                if (index === question.correct) {
+                    btn.classList.add('correct');
+                }
+                if (index === selectedIndex && selectedIndex !== question.correct) {
+                    btn.classList.add('wrong');
+                }
+            });
+            
+            if (selectedIndex === question.correct) {
+                score++;
+            }
+            
+            document.getElementById('next-btn').classList.add('visible');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < currentQuestions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            totalTime = Math.floor((Date.now() - startTime) / 1000);
+            
+            document.querySelector('.quiz-screen').classList.remove('active');
+            document.querySelector('.result-screen').classList.add('active');
+            
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            document.getElementById('final-score').textContent = percentage + '%';
+            document.getElementById('correct-answers').textContent = score;
+            document.getElementById('wrong-answers').textContent = currentQuestions.length - score;
+            document.getElementById('time-taken').textContent = totalTime + 's';
+            
+            let message = '';
+            if (percentage === 100) {
+                message = '🎯 Perfetto! Sei un genio!';
+            } else if (percentage >= 80) {
+                message = '🌟 Eccellente! Ottimo lavoro!';
+            } else if (percentage >= 60) {
+                message = '👍 Buon lavoro! Continua così!';
+            } else if (percentage >= 40) {
+                message = '📚 Puoi migliorare! Riprova!';
+            } else {
+                message = '💪 Non mollare! La pratica rende perfetti!';
+            }
+            document.getElementById('result-message').textContent = message;
+            
+            saveHighScore(percentage, totalTime);
+            displayHighScores();
+        }
+
+        function saveHighScore(percentage, time) {
+            let highScores = JSON.parse(localStorage.getItem('quizHighScores') || '[]');
+            
+            highScores.push({
+                score: percentage,
+                time: time,
+                difficulty: currentDifficulty,
+                date: new Date().toLocaleDateString()
+            });
+            
+            highScores.sort((a, b) => b.score - a.score || a.time - b.time);
+            highScores = highScores.slice(0, 5);
+            
+            localStorage.setItem('quizHighScores', JSON.stringify(highScores));
+        }
+
+        function displayHighScores() {
+            const highScores = JSON.parse(localStorage.getItem('quizHighScores') || '[]');
+            const container = document.getElementById('highscores-list');
+            
+            if (highScores.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #7f8c8d;">Nessun punteggio salvato</p>';
+                return;
+            }
+            
+            container.innerHTML = highScores.map((score, index) => `
+                <div class="highscore-item">
+                    <span>${index + 1}. ${score.score}% (${score.difficulty}) - ${score.date}</span>
+                    <span>${score.time}s</span>
+                </div>
+            `).join('');
+        }
+
+        function restartQuiz() {
+            document.querySelector('.result-screen').classList.remove('active');
+            document.querySelector('.start-screen').classList.add('active');
+        }
+    </script>
+</body>
+</html>

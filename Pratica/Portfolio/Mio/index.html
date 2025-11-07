@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Arial,sans-serif;
+        }
+
+        nav{
+            position: fixed;
+            display: flex;
+            height: auto;
+            width: 100vw;
+            justify-content: space-between;
+            background-color: rgb(76, 76, 180);
+            align-items: center;
+            padding: 1rem;
+            z-index: 1000;
+        }
+        
+        #navContainer{
+            display: flex;
+            gap:2rem;
+        }
+        @media (max-width: 30em){
+            #navContainer{
+                
+                flex-direction: column;
+            }
+        }
+        #navContainer a{
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+        }
+        #navContainer a:hover{
+            color: rgb(70, 159, 179);
+        }
+        
+        #myTema{
+            padding: 0.5rem 1rem 0.5rem 1rem;
+            border: none;
+            background-color: skyblue;
+            color: white;
+            border-radius: 30px;
+        }
+        /*-----------------*/
+
+        hero{
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap:2rem;
+            background-color: rgb(33, 33, 95);
+        }
+
+        hero h1{
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            font-size: 3rem;
+        }
+        hero h2{
+            font-size: 1.3rem;
+            color: rgb(168, 132, 132);
+        }
+
+        hero button{
+            padding: 0.5rem 1rem 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            border: none;
+        }   
+        /*----------------------*/
+
+
+        main{
+            height: auto;
+            background-color: rgb(33, 33, 95);
+            padding: 2rem;
+        }
+        .titolo{
+            margin-bottom: 2rem;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .container{
+            display: flex;
+            gap:1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        @media (max-width:30em){
+            .container{
+                flex-direction: column;
+            }
+        }
+
+        main .container .element{
+            max-width: 375px;
+            height: 200px;
+            background-color: skyblue;
+            padding: 2rem;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap:1rem;
+            transition: all 0.3s;
+        }
+        main .container .element:hover{
+            transform: translateY(-1rem);
+        }
+
+        main .container .element h1{
+            font-size: 1.3rem;
+            color: rgb(76, 76, 160);
+        }
+
+        main .container .element p{
+            color: gray;
+            font-size: 100;
+        }
+
+        main .container .element span{
+            padding: 0.5rem;
+            border-radius: 20px;
+            background-color: rgb(143, 143, 226);
+            color: white;
+        }
+
+        /*--------------------------*/
+
+        .competenze{
+            height: auto;
+            background-color: rgb(33, 33, 95);
+            padding: 2rem;
+        }
+        .competenze .container{
+            justify-content: center;
+        }
+
+        .competenze .competenza{
+            color: white;
+            font-size: 0.7rem;
+            width: 300px;
+            text-align: center;
+
+        }
+        #stat{
+            background-color: rgb(0, 0, 0);
+            border-radius: 20px;
+        }
+
+
+        #myTraguardo{
+            background-color: skyblue;
+            height: 0.7rem;
+            width: 40%;
+            border-radius: 20px;
+        }
+
+        /*-----------------------*/
+
+        .contattami{
+            height: auto;
+            background-color: rgb(33, 33, 95);
+            padding: 2rem;
+        }
+
+        .lista{
+            display: flex;
+            flex-direction: column;
+            gap:1rem;
+            color: white;
+        }
+
+
+        #myName , #myEmail{
+            background-color: rgb(148, 148, 190);
+            border: none;
+            border-radius:10px;
+            height: 2rem;
+        }
+        #myMessaggio{
+            background-color: rgb(148, 148, 190);
+            border: none;
+            border-radius:10px;
+            height: 5rem;
+        }
+
+
+        
+
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div id='navContainer'>
+            <a href="#myHero">Home</a>
+            <a href="#myHero">Progetti</a>
+            <a href="#myHero">Skills</a>
+            <a href="#myContatti">Contatti</a>
+        </div>
+        <button id="myTema">Tema</button>
+    </nav>
+
+    <hero id="myHero">
+        <h1>Ciao, sono [Tuo Nome]</h1>
+        <h2>Web Developer & Creative Designer</h2>
+        <button id="myContattami" href="">Contattami</button>
+    </hero>
+
+
+    <main>
+        <h1 class="titolo">I Miei Progetti</h1>
+        <div class="container">
+            <div class="element">
+                <h1>Portfolio Website</h1>
+                <p>Un portfolio moderno e responsive con animazioni fluide e design accattivante.</p>
+                <div>
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JS</span>
+                </div>
+            </div>
+            <div class="element">
+                <h1>Portfolio Website</h1>
+                <p>Un portfolio moderno e responsive con animazioni fluide e design accattivante.</p>
+                <div>
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JS</span>
+                </div>
+            </div>
+            <div class="element">
+                <h1>Portfolio Website</h1>
+                <p>Un portfolio moderno e responsive con animazioni fluide e design accattivante.</p>
+                <div>
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JS</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="competenze">
+        <h1 class="titolo">Le Mie Competenze</h1>
+        <div class="container">
+        <div class="competenza">
+            <h2>HTML/CSS</h2>
+            <div id="stat">
+            <div id="myTraguardo"></div>
+            </div>
+
+        </div>
+        <div class="competenza">
+            <h2>HTML/CSS</h2>
+            <div id="stat">
+            <div id="myTraguardo"></div>
+            </div>
+
+        </div>
+        <div class="competenza">
+            <h2>HTML/CSS</h2>
+<div id="stat">
+            <div id="myTraguardo"></div>
+            </div>
+
+        </div>
+        <div class="competenza">
+            <h2>HTML/CSS</h2>
+            <div id="stat">
+            <div id="myTraguardo"></div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <footer class="contattami">
+        <h1 class="titolo">Contattami</h1>
+        <div class="lista">
+            
+            <h2>Nome</h2>
+            <input type="text" id="myName">
+            <h2>Email</h2>
+            <input type="email" id="myEmail">
+            <h2>Messaggio</h2>
+            <input type="text" id="myMessaggio">
+        </div>
+    </footer>
+
+    
+</body>
+</html>

@@ -75,12 +75,19 @@
             color: rgb(168, 132, 132);
         }
 
-        hero button{
+        hero a{
             padding: 0.5rem 1rem 0.5rem 1rem;
             font-size: 1rem;
             border-radius: 30px;
             border: none;
+            transition: all 0.3;
+            background-color: aqua;
+            text-decoration: none;
         }   
+        hero a:hover{
+            background-color: rgb(132, 132, 214);
+        }
+
         /*----------------------*/
 
 
@@ -193,16 +200,31 @@
             border: none;
             border-radius:10px;
             height: 2rem;
+            padding: 1rem;
         }
         #myMessaggio{
             background-color: rgb(148, 148, 190);
             border: none;
             border-radius:10px;
             height: 5rem;
+            padding: 1rem;
+
         }
 
 
-        
+        #sandMessage{
+            padding: 1rem;
+            border-radius:20px ;
+            background-color: rgb(51, 51, 213);
+            border: none;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        #sandMessage:hover{
+            background-color: rgb(148, 148, 190);
+        }
+
 
 
     </style>
@@ -211,9 +233,9 @@
     <nav>
         <div id='navContainer'>
             <a href="#myHero">Home</a>
-            <a href="#myHero">Progetti</a>
-            <a href="#myHero">Skills</a>
-            <a href="#myContatti">Contatti</a>
+            <a href="#myProjects">Progetti</a>
+            <a href="#competenze">Skills</a>
+            <a href="#contattami">Contatti</a>
         </div>
         <button id="myTema">Tema</button>
     </nav>
@@ -221,11 +243,11 @@
     <hero id="myHero">
         <h1>Ciao, sono [Tuo Nome]</h1>
         <h2>Web Developer & Creative Designer</h2>
-        <button id="myContattami" href="">Contattami</button>
+        <a id="myContattami" href="#contattami">Contattami</a>
     </hero>
 
 
-    <main>
+    <main id="myProjects">
         <h1 class="titolo">I Miei Progetti</h1>
         <div class="container">
             <div class="element">
@@ -258,7 +280,7 @@
         </div>
     </main>
 
-    <section class="competenze">
+    <section class="competenze" id="competenze">
         <h1 class="titolo">Le Mie Competenze</h1>
         <div class="container">
         <div class="competenza">
@@ -291,7 +313,7 @@
         </div>
     </section>
 
-    <footer class="contattami">
+    <footer class="contattami" id="contattami">
         <h1 class="titolo">Contattami</h1>
         <div class="lista">
             
@@ -300,8 +322,10 @@
             <h2>Email</h2>
             <input type="email" id="myEmail">
             <h2>Messaggio</h2>
-            <input type="text" id="myMessaggio">
+            <textarea type="text" id="myMessaggio"></textarea>
         </div>
+        <br>
+        <button id="sandMessage">Invia messaggio</button>
     </footer>
 
     

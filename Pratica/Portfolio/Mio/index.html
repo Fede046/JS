@@ -225,7 +225,47 @@
             background-color: rgb(148, 148, 190);
         }
 
+        /*-----------------------*/
+        /*Lightbox*/
+        .lightbox{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox-content {
+            background-color: skyblue;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            
+        }
 
+        .lightbox-close {
+            color: white;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
 
     </style>
 </head>
@@ -250,7 +290,7 @@
     <main id="myProjects">
         <h1 class="titolo">I Miei Progetti</h1>
         <div class="container">
-            <div class="element">
+            <div class="element"onclick="openLightbox(1)">
                 <h1>Portfolio Website</h1>
                 <p>Un portfolio moderno e responsive con animazioni fluide e design accattivante.</p>
                 <div>
@@ -259,7 +299,7 @@
                     <span>JS</span>
                 </div>
             </div>
-            <div class="element">
+            <div class="element"onclick="openLightbox(2)">
                 <h1>Portfolio Website</h1>
                 <p>Un portfolio moderno e responsive con animazioni fluide e design accattivante.</p>
                 <div>
@@ -268,7 +308,7 @@
                     <span>JS</span>
                 </div>
             </div>
-            <div class="element">
+            <div class="element" onclick="openLightbox(3)">
                 <h1>Portfolio Website</h1>
                 <p>Un portfolio moderno e responsive con animazioni fluide e design accattivante.</p>
                 <div>
@@ -279,6 +319,7 @@
             </div>
         </div>
     </main>
+
 
     <section class="competenze" id="competenze">
         <h1 class="titolo">Le Mie Competenze</h1>
@@ -313,6 +354,7 @@
         </div>
     </section>
 
+    <!--Contattami-->
     <footer class="contattami" id="contattami">
         <h1 class="titolo">Contattami</h1>
         <div class="lista">
@@ -328,6 +370,16 @@
         <button id="sandMessage">Invia messaggio</button>
     </footer>
 
-    
+    <!--Lightbox-->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">x</button>
+            <h2 id="lightbox-title" style="margin-bottom: 1rem;">E-Commerce Platform</h2>
+            <p id="lightbox-description">Una piattaforma e-commerce completa con carrello della spesa, gestione prodotti, sistema di autenticazione utenti e integrazione con gateway di pagamento. Backend sviluppato con Node.js e Express, database MongoDB per gestire prodotti e ordini.</p>
+        </div>
+    </div>
+
+
+    <script src="index.js"></script>
 </body>
 </html>

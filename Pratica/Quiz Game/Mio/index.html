@@ -78,6 +78,41 @@
         .menu #btnInizia:hover{
             transform: scale(1.05);
         }
+
+
+
+
+        /*-------------------------*/
+
+        .quiz{
+            height: 90vh;
+            max-height: 700px;
+            width: 90%;
+            max-width: 900px;
+            display: none;
+            border-radius: 20px;
+            background-color: white;
+            flex-direction: column;
+            gap:3rem;
+            padding: 3rem;
+
+        }
+
+        .quiz.active{
+            display: flex;
+        }
+        .bannerDomanda{
+            background-color: gray;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: blue;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+
+        /*----------------------------*/
         @media (max-width:600px){
             .menu .difficolta{
                 flex-direction: column;
@@ -97,12 +132,27 @@
         <h1>🧠 Quiz Challenge</h1>
         <p>Scegli la difficoltà e metti alla prova le tue conoscenze!</p>
         <div class="difficolta">
-            <button class="btnDiff" id="btnFacile" data-difficulty="easy">Facile</button>
-            <button class="btnDiff" id="btnMedio"data-difficulty="medium">Medio</button>
+            <button class="btnDiff selected" id="btnFacile" data-difficulty="easy">Facile</button>
+            <button class="btnDiff" id="btnMedio"data-difficulty="midium">Medio</button>
             <button class="btnDiff" id="btnDifficile"data-difficulty="hard">Difficile</button>
         </div>
         <button id="btnInizia" onclick="startQuiz()">Inizia Quiz</button>
     </section>
+
+
+    <!--Quiz-->
+    <section class="quiz" id="quiz">
+        <div class="bannerDomanda">
+            <p id=nDomanada></p>
+            <p id="nTempo">32</p>
+        </div>
+
+
+    </section>
+
+
+
+
 
     <script src="index.js"></script>
 </body>

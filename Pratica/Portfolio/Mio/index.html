@@ -267,6 +267,27 @@
             cursor: pointer;
         }
 
+        .back-to-top{
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding: 1rem 1.5rem 1rem 1.5rem;
+            border-radius: 30px;
+            border: none;
+            background-color: skyblue;
+            margin:2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .back-to-top:hover{
+            background-color: rgb(31, 89, 112);
+        }
+        /*diverso da metteri staccati*/
+        .back-to-top.visible{
+            display: flex;
+        }
+
     </style>
 </head>
 <body>
@@ -378,6 +399,10 @@
             <p id="lightbox-description">Una piattaforma e-commerce completa con carrello della spesa, gestione prodotti, sistema di autenticazione utenti e integrazione con gateway di pagamento. Backend sviluppato con Node.js e Express, database MongoDB per gestire prodotti e ordini.</p>
         </div>
     </div>
+
+    <!--BacktoTop Button-->
+    <button class="back-to-top" onclick="scrolltoTop()">↑</button>
+
 
 
     <script src="index.js"></script>

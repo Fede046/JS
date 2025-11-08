@@ -30,6 +30,28 @@ function closeLightbox() {
 }
 
 
+/*----------------------------------------*/
+
+
+
+function scrolltoTop(){
+    window.scrollTo({top:0});
+}
+
+/*------------*/ 
+/*cambia la visibilità*/
+
+window.addEventListener('scroll', () => {
+    const backToTop = document.querySelector('.back-to-top');
+    if(window.scrollY>300){
+        backToTop.classList.add('visible');
+    }else{
+        backToTop.classList.remove('visible');
+    }
+});
+
+
+
 
 
 

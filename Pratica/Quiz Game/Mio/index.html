@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: Verdana,sans-serif;
+            background-color: skyblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /*-----------Menu----------*/
+        .menu{
+            height: 90vh;
+            max-height: 700px;
+            width: 90%;
+            max-width: 900px;
+            display: flex;
+            border-radius: 20px;
+            background-color: white;
+            flex-direction: column;
+            gap:3rem;
+            padding: 3rem;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .menu.disactiv{
+            display: none;
+        }
+
+        .menu h1{
+            color: blue;
+            font-size: auto;
+        }
+        .menu p{
+            font-size: auto;
+            color: gray;
+        }
+        .menu .difficolta{
+            display: flex;
+            gap:2rem;
+            justify-content: center;
+        }
+        .menu .btnDiff{
+            color: blue;
+            padding: 1rem 1.5rem 1rem 1.5rem;
+            border-radius: 10px;
+            border: 2px solid blue;
+            transition: all 0.3s;
+        }
+
+        .menu .btnDiff:hover,.menu .btnDiff.selected{
+            transform: translateY(-0.5rem);
+            color: white;
+            background-color: blue;
+            cursor: pointer;
+        }
+
+        .menu #btnInizia{
+            background-color: blue;
+            color:white;
+            padding: 1rem;
+            border-radius: 10px;
+            border: none;
+            transition: all 0.3s;
+            cursor:pointer;
+        }
+        .menu #btnInizia:hover{
+            transform: scale(1.05);
+        }
+        @media (max-width:600px){
+            .menu .difficolta{
+                flex-direction: column;
+                gap:1rem;
+            }
+            .menu{
+                gap:1rem;
+            }
+        }
+    </style>
+
+
+</head>
+<body>
+    <!--Menu iniziale-->
+    <section class="menu" id="menu">
+        <h1>🧠 Quiz Challenge</h1>
+        <p>Scegli la difficoltà e metti alla prova le tue conoscenze!</p>
+        <div class="difficolta">
+            <button class="btnDiff" id="btnFacile" data-difficulty="easy">Facile</button>
+            <button class="btnDiff" id="btnMedio"data-difficulty="medium">Medio</button>
+            <button class="btnDiff" id="btnDifficile"data-difficulty="hard">Difficile</button>
+        </div>
+        <button id="btnInizia" onclick="startQuiz()">Inizia Quiz</button>
+    </section>
+
+    <script src="index.js"></script>
+</body>
+</html>

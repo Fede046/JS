@@ -52,7 +52,7 @@
         }
 
         #myCal {
-            width: 20%;
+            width: 0%;
             background-color: rgb(92, 196, 231);
             height: 1rem;
             border-radius: 10px;
@@ -86,9 +86,18 @@
         const myObbiettivo = 500;
         document.getElementById("myObbiettivo").textContent = myObbiettivo;
         let count = 0;
+        let calCount = 0;
 
         function addCal() {
-            document.getElementById("myCal").
+            calCount += (myObbiettivo + 10) / 100;
+            count += 10;
+            document.getElementById("myCal").style.width = count + "%";
+            if (calCount >= myObbiettivo) {
+                count = 0;
+                calCount = 0;
+            }
+
+            document
         }
     </script>
 </body>

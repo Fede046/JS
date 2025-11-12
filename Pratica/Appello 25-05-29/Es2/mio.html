@@ -136,7 +136,7 @@
             playerContainer.innerHTML = '';
 
             playerHand.forEach((card, index) => {
-                const cardElement = renderCard()
+                const cardElement = renderCard(card, () => playCard(index));
                 playerContainer.appendChild(cardElement);
             });
 

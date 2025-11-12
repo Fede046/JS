@@ -39,19 +39,24 @@
             grid-template-columns: 1fr 1fr;
         }
 
+        .contSub h1 {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
         .contSub p {
             text-align: right;
             font-size: 2rem;
         }
 
-        #maxCal {
+        .maxBar {
             background-color: gray;
             width: 100%;
             height: 1rem;
             border-radius: 10px;
         }
 
-        #myCal {
+        .myBar {
             width: 0%;
             background-color: rgb(92, 196, 231);
             height: 1rem;
@@ -67,19 +72,44 @@
 
     <section class="element">
         <div class="contSub">
-            <h1 class="mySubtitle">Calorie Oggi</h1>
+            <h1>Calorie Oggi</h1>
             <p>🔥</p>
         </div>
 
-        <h1>0</h1>
+        <h1 id="myh1Cal">0</h1>
         <p style="font-size: 0.7rem;">kcal bruciate</p>
-        <div id="maxCal">
-            <div id="myCal"></div>
+        <div class="maxBar" id="maxCal">
+            <div class="myBar" id="myCal"></div>
         </div>
         <p style="font-size: 0.7rem;">Obbiettivo <span id="myObbiettivo">num</span> kacl</p>
 
         <button id="myButton" onclick="addCal()">Aggiungi Cal</button>
         <p id="messaggio"></p>
+    </section>
+
+    <section class="element">
+        <div class="contSub">
+            <h1>Allenamenti Settimana</h1>
+            <p>A</p>
+        </div>
+        <h1>0</h1>
+        <p style="font-size: 0.7rem;">sessioni</p>
+
+        <div class="maxBar" id="maxSess">
+            <div class="myBar" id="mySess"></div>
+        </div>
+        <p style="font-size: 0.7rem">Obbiettivo: <span>num</span> sessioni</p>
+    </section>
+
+
+    <!--Registro Allenamento-->
+    <section class="element">
+        <input type="date">
+        <select name="allenamento">
+            <option value="cardio"></option>
+            <option value="Flessibilità">Flessibilità</option>
+            <option value="Forza">Forza</option>
+        </select>
     </section>
 
     <script>
@@ -89,15 +119,16 @@
         let calCount = 0;
 
         function addCal() {
-            calCount += (myObbiettivo + 10) / 100;
+            calCount += (myObbiettivo * 10) / 100;
             count += 10;
             document.getElementById("myCal").style.width = count + "%";
+            document.getElementById("myh1Cal").textContent = calCount;
             if (calCount >= myObbiettivo) {
                 count = 0;
                 calCount = 0;
+                document.getElementById("myButton").disabled = true;
+                document.getElementById("messaggio").textContent = "Obbiettivo completato";
             }
-
-            document
         }
     </script>
 </body>

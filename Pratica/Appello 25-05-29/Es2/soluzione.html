@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,48 +11,47 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
             padding: 20px;
         }
-        
+
         .container {
             background: white;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             max-width: 800px;
             width: 100%;
         }
-        
+
         h1 {
             text-align: center;
             color: #333;
             margin-bottom: 30px;
         }
-        
+
         .game-area {
             display: flex;
             flex-direction: column;
             gap: 30px;
         }
-        
+
         .discard-pile {
             text-align: center;
         }
-        
+
         .discard-pile h2 {
             color: #555;
             margin-bottom: 15px;
             font-size: 18px;
         }
-        
+
         .card {
             display: inline-block;
             width: 80px;
@@ -63,53 +63,53 @@
             font-size: 32px;
             font-weight: bold;
             color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
-        
+
         .card.red {
             background: linear-gradient(135deg, #ff6b6b, #c92a2a);
         }
-        
+
         .card.green {
             background: linear-gradient(135deg, #51cf66, #2f9e44);
         }
-        
+
         .card.blue {
             background: linear-gradient(135deg, #4dabf7, #1971c2);
         }
-        
+
         .card.yellow {
             background: linear-gradient(135deg, #ffd43b, #fab005);
         }
-        
+
         .player-hand {
             text-align: center;
         }
-        
+
         .player-hand h2 {
             color: #555;
             margin-bottom: 15px;
             font-size: 18px;
         }
-        
+
         .cards-container {
             display: flex;
             gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         .controls {
             text-align: center;
         }
-        
+
         .btn-draw {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
@@ -119,26 +119,26 @@
             font-weight: bold;
             border-radius: 10px;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        
+
         .btn-draw:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
-        
+
         .btn-draw:active {
             transform: translateY(0);
         }
-        
+
         .turn-info {
             text-align: center;
             font-size: 20px;
             color: #555;
             font-weight: bold;
         }
-        
+
         .game-over {
             background: #22c55e;
             color: white;
@@ -149,13 +149,23 @@
             font-weight: bold;
             animation: celebration 0.5s ease;
         }
-        
+
         @keyframes celebration {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        
+
         .message {
             text-align: center;
             padding: 10px;
@@ -163,43 +173,44 @@
             border-radius: 5px;
             font-weight: bold;
         }
-        
+
         .message.error {
             background: #fee;
             color: #c00;
         }
-        
+
         .message.success {
             background: #efe;
             color: #060;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>🎮 UNO Solitario</h1>
-        
+
         <div class="game-area">
             <div class="discard-pile">
                 <h2>Pila degli Scarti</h2>
                 <div id="discardCard"></div>
             </div>
-            
+
             <div class="player-hand">
                 <h2>Le Tue Carte</h2>
                 <div id="playerCards" class="cards-container"></div>
             </div>
-            
+
             <div class="controls">
                 <button id="btnDraw" class="btn-draw">🎴 Pesca dal Mazzo</button>
             </div>
-            
+
             <div id="message"></div>
-            
+
             <div class="turn-info">
                 <div id="turnCounter">Turni: 0</div>
             </div>
-            
+
             <div id="gameOverMessage"></div>
         </div>
     </div>
@@ -214,25 +225,25 @@
             'G': 'yellow'
         };
         const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        
+
         // Stato del gioco
         let playerHand = [];
         let discardPile = null;
         let turnCount = 0;
         let gameOver = false;
-        
+
         // Genera una carta casuale
         function generateCard() {
             const color = COLORS[Math.floor(Math.random() * COLORS.length)];
             const number = NUMBERS[Math.floor(Math.random() * NUMBERS.length)];
             return { color, number };
         }
-        
+
         // Verifica se una carta è compatibile con quella sulla pila
         function isCompatible(card, discardCard) {
             return card.color === discardCard.color || card.number === discardCard.number;
         }
-        
+
         // Renderizza una carta
         function renderCard(card, onClick) {
             const cardDiv = document.createElement('div');
@@ -243,27 +254,27 @@
             }
             return cardDiv;
         }
-        
+
         // Aggiorna la visualizzazione
         function updateDisplay() {
             // Aggiorna pila degli scarti
             const discardContainer = document.getElementById('discardCard');
             discardContainer.innerHTML = '';
             discardContainer.appendChild(renderCard(discardPile));
-            
+
             // Aggiorna carte del giocatore
             const playerContainer = document.getElementById('playerCards');
             playerContainer.innerHTML = '';
-            
+
             playerHand.forEach((card, index) => {
                 const cardElement = renderCard(card, () => playCard(index));
                 playerContainer.appendChild(cardElement);
             });
-            
+
             // Aggiorna contatore turni
             document.getElementById('turnCounter').textContent = `Turni: ${turnCount}`;
         }
-        
+
         // Mostra messaggio
         function showMessage(text, type = 'error') {
             const messageDiv = document.getElementById('message');
@@ -274,23 +285,23 @@
                 messageDiv.className = 'message';
             }, 2000);
         }
-        
+
         // Gioca una carta
         function playCard(index) {
             if (gameOver) return;
-            
+
             const card = playerHand[index];
-            
+
             if (isCompatible(card, discardPile)) {
                 // Rimuovi la carta dalla mano
                 playerHand.splice(index, 1);
-                
+
                 // Aggiungi alla pila degli scarti
                 discardPile = card;
-                
+
                 showMessage('Carta giocata!', 'success');
                 updateDisplay();
-                
+
                 // Verifica se il giocatore ha vinto
                 if (playerHand.length === 0) {
                     endGame();
@@ -299,53 +310,54 @@
                 showMessage('Carta non compatibile! Deve avere stesso numero o colore.');
             }
         }
-        
+
         // Pesca una carta
         function drawCard() {
             if (gameOver) return;
-            
+
             const newCard = generateCard();
             playerHand.push(newCard);
             turnCount++;
-            
+
             showMessage('Carta pescata!', 'success');
             updateDisplay();
         }
-        
+
         // Termina il gioco
         function endGame() {
             gameOver = true;
             const gameOverDiv = document.getElementById('gameOverMessage');
             gameOverDiv.className = 'game-over';
             gameOverDiv.textContent = `🎉 HAI VINTO! Hai completato il gioco in ${turnCount} turni!`;
-            
+
             document.getElementById('btnDraw').disabled = true;
             document.getElementById('btnDraw').style.opacity = '0.5';
             document.getElementById('btnDraw').style.cursor = 'not-allowed';
         }
-        
+
         // Inizializza il gioco
         function initGame() {
             // Genera 3 carte per il giocatore
             for (let i = 0; i < 3; i++) {
                 playerHand.push(generateCard());
             }
-            
+
             // Genera carta iniziale per la pila degli scarti
             discardPile = generateCard();
-            
+
             // Resetta contatore turni
             turnCount = 0;
             gameOver = false;
-            
+
             updateDisplay();
         }
-        
+
         // Event listener per il bottone pesca
         document.getElementById('btnDraw').addEventListener('click', drawCard);
-        
+
         // Avvia il gioco al caricamento della pagina
         initGame();
     </script>
 </body>
+
 </html>

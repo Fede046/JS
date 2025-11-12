@@ -1,93 +1,151 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Document</title>
-        <style>
-            *{
-                margin:0;
-                padding: 0;
-                box-sizing:border-box;
-            }
 
-            body{
-                font-family: Arial, sans-serif;
-                background-color: gray;
-                min-height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 200px;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            .container{
-                background-color: white;
-                border-radius: 20px;
-                padding:30px;
-                max-width: 800px;
-                width: 100%;
-            }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: gray;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
 
-            h1{
-                text-align: center;
-                margin-bottom: 30px;
-            }
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
 
-            .game-area{
-                display: felx;
-                flex-direction: column;
-                gap: 30px;
-            }
-            .discard-pile h2 {
-                color: #555;
-                margin-bottom: 15px;
-                font-size: 18px;
-            }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-        </style>
-    </head>
-    <body>
-        <div class="container">
+        .game-area {
+            display: felx;
+            flex-direction: column;
+            gap: 30px;
+        }
 
-            <h1>UNO Solitario</h1>
+        .discard-pile {
+            text-align: center;
+        }
 
-            <div class="game-area">
-                <div class="discard-pile">
-                    <h2>Pila degli scarti</h2>
-                    <div id="discardCard"></div>
-                </div>
+        .discard-pile h2 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+    </style>
+</head>
 
+<body>
+    <div class="container">
 
-                <div class="player-hand">
-                    <h2>Le tue carte</h2>
-                    <div id="playerCards" class="cards-container"></div>
-                </div>
+        <h1>UNO Solitario</h1>
 
-
-                <controls>
-                    <button id="btnDraw" class="btn-draw">Pesca dal mazzo</button>
-                </controls>
-
-                <div id="message"></div>
-
-                <div class="turn-info">
-                    <div id="turnContainer">Turni: 0</div>
-                </div>
-
-                <div id="gameOverMessage"></div>
-
+        <div class="game-area">
+            <div class="discard-pile">
+                <h2>Pila degli scarti</h2>
+                <div id="discardCard"></div>
             </div>
 
 
+            <div class="player-hand">
+                <h2>Le tue carte</h2>
+                <div id="playerCards" class="cards-container"></div>
+            </div>
 
+
+            <controls>
+                <button id="btnDraw" class="btn-draw">Pesca dal mazzo</button>
+            </controls>
+
+            <div id="message"></div>
+
+            <div class="turn-info">
+                <div id="turnContainer">Turni: 0</div>
+            </div>
+
+            <div id="gameOverMessage"></div>
 
         </div>
 
 
 
-        <script>
 
-        </script>
-    </body>
+    </div>
+
+
+
+    <script>
+        const COLORS = ['R', 'V', 'B', 'G'];
+        const COLOR_NAMES = {
+            'R': 'red',
+            'V': 'green',
+            'G': 'yellow',
+            'B': 'blue'
+        };
+
+        const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+        //stato del gioco
+
+        let playerHand = [];
+        let discardPile = null;
+        let turnCount = 0;
+        let gameOver = false;
+
+        function generateCard() {
+            const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+            const number = NUMBERS[Math.floor(Math.random() * NUMBERS.length)];
+            return { color, number };
+        }
+
+        function renderCard(card, onClick) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = `card ${COLOR_NAMES[card.color]}`;
+            cardDiv.textContent = `${card.number}${card.colos}`
+            if (onClick) {
+                cardDiv.onclick = onClick;
+            }
+            return cardDiv;
+        }
+
+        function updateDisplay() {
+            //Aggiorna la pila degli scarti
+            const discardContainer = document.getElementById('discardCard');
+            discardContainer.innerHTML = '';
+            discardContainer.appendChild(renderCard(discardPile));
+
+            //Aggiorna carte del giocatore
+            const playerContainer = document.getElementById('playerCards');
+            playerContainer.innerHTML = '';
+
+            playerHand.forEach((card, index) => {
+                const cardElement = renderCard()
+                playerContainer.appendChild(cardElement);
+            });
+
+
+        }
+
+
+
+    </script>
+</body>
+
 </html>

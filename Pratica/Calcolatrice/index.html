@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width:device-width,initial-scale=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        main {
+            border: 2px solid firebrick;
+            height: 50vh;
+            width: 50vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-template-areas:
+                'box1 box1 box1 box1 box1'
+                'b1 b2 b3 bsum bmolt'
+                'b4 b5 b6 bmen bfr'
+                'b7 b8 b9 b0 binvio';
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .myBarra {
+            display: flex;
+            grid-area: box1;
+            border: 2px solid black;
+            font-size: 2rem;
+            width: 100%;
+
+
+        }
+
+        p {
+            border: 2px solid black;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        p:hover {
+            background-color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1 type="number" class="myBarra">
+        </h1>
+        <p onclick="addNumb('1')" style="grid-area: b1;">1</p>
+        <p onclick="addNumb('2')" style="grid-area: b2;">2</p>
+        <p onclick="addNumb('3')" style="grid-area: b3;">3</p>
+        <p onclick="addNumb('4')" style="grid-area: b4;">4</p>
+        <p onclick="addNumb('5')" style="grid-area: b5;">5</p>
+        <p onclick="addNumb('6')" style="grid-area: b6;">6</p>
+        <p onclick="addNumb('7')" style="grid-area: b7;">7</p>
+        <p onclick="addNumb('8')" style="grid-area: b8;">8</p>
+        <p onclick="addNumb('9')" style="grid-area: b9;">9</p>
+        <p onclick="addNumb('0')" style="grid-area: b0;">0</p>
+        <p style="grid-area: bsum;">+</p>
+        <p style="grid-area: bmen;">-</p>
+        <p style="grid-area: bfr;">/</p>
+        <p style="grid-area: bmolt;">*</p>
+        <p style="grid-area: binvio;">=</p>
+
+
+    </main>
+
+
+    <script>
+
+        let num = '';
+
+        function addNumb(n) {
+            num += n;
+            console.log(num);
+            document.querySelector('.myBarra').textContent = num;
+        }
+
+    </script>
+</body>
+
+</html>

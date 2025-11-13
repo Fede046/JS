@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carosello CSS Puro</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .carousel-container {
+      max-width: 800px;
+      width: 90%;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      text-align: center;
+      scroll-snap-align: start;
+    }
+
+    .slide h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .slide p {
+      font-size: 1.2em;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .slide:nth-child(1) { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+    .slide:nth-child(2) { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
+    .slide:nth-child(3) { background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); }
+    .slide:nth-child(4) { background: linear-gradient(135deg, #fdcbf1 0%, #e6dee9 100%); }
+
+    .controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 20px;
+      pointer-events: none;
+    }
+
+    .btn {
+      background: rgba(255,255,255,0.9);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      pointer-events: all;
+    }
+
+    .btn:hover {
+      background: white;
+      transform: scale(1.1);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      transition: all 0.3s;
+    }
+
+    .carousel:has(#slide1:target) ~ .indicators .dot:nth-child(1),
+    .carousel:has(#slide2:target) ~ .indicators .dot:nth-child(2),
+    .carousel:has(#slide3:target) ~ .indicators .dot:nth-child(3),
+    .carousel:has(#slide4:target) ~ .indicators .dot:nth-child(4) {
+      background: white;
+      transform: scale(1.3);
+    }
+
+    /* Fallback per il primo slide */
+    .carousel:not(:has(:target)) ~ .indicators .dot:nth-child(1) {
+      background: white;
+      transform: scale(1.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel-container">
+    <div class="carousel">
+      <div class="slide" id="slide1">
+        <h2>🌟 Slide 1</h2>
+        <p>Benvenuto nel carosello! Usa le frecce per navigare.</p>
+      </div>
+      <div class="slide" id="slide2">
+        <h2>🎨 Slide 2</h2>
+        <p>Ogni slide ha un design unico e accattivante.</p>
+      </div>
+      <div class="slide" id="slide3">
+        <h2>🚀 Slide 3</h2>
+        <p>Transizioni fluide solo con CSS.</p>
+      </div>
+      <div class="slide" id="slide4">
+        <h2>✨ Slide 4</h2>
+        <p>Nessun JavaScript richiesto!</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <a href="#slide1" class="btn">‹</a>
+      <a href="#slide4" class="btn">›</a>
+    </div>
+
+    <div class="indicators">
+      <a href="#slide1" class="dot"></a>
+      <a href="#slide2" class="dot"></a>
+      <a href="#slide3" class="dot"></a>
+      <a href="#slide4" class="dot"></a>
+    </div>
+  </div>
+</body>
+</html>

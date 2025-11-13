@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Document</title>
+        <style>
+            *{
+                margin:0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                width: 100vw;
+                padding: 7rem 2rem 7rem 2rem;
+            }
+
+            main{
+                background-color: rebeccapurple;
+                width: 100%;
+                height: 100%;
+                border-radius:20px ;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                
+            }
+            a{
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                justify-content: center;
+                background-color: white;
+                height: 50px;
+                width: 50px;
+                border-radius: 50px;
+                z-index: 2;
+                margin: 1rem;
+                text-decoration: none;
+            }
+            a:hover{
+                background-color: skyblue;
+            }
+
+            section{
+                width: 80%;
+                height: 80%;
+                overflow-x: auto;
+                overflow-y: hidden;
+                position: relative;/*da vedere cosa cambia se tolto*/
+                /*scroll-behavior: smooth;*/
+                scroll-snap-type: x mandatory; /**/
+            }
+            section div{
+                min-width: 100%;
+                display: inline-block;
+                height: 100%;
+            }
+
+            .carousel{
+                display: flex;
+                /*transition: transform 0.5s ease;*/
+                height: 100%;
+            }
+            .slide{
+                min-width: 100%;
+                height: 100%;
+                padding: 1rem;
+                scroll-snap-align: start; 
+                position: relative;
+            }
+
+            
+
+        </style>
+    </head>
+    <body>
+        <main>
+            <a href="#slide1"><-</a>
+
+            <section>
+                <div class="carousel">
+                    <div class="slide" id="slide1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor minus eligendi provident, repudiandae, distinctio ut officiis, eos reiciendis voluptates fugit error quaerat debitis nam aliquid aut recusandae. Dignissimos, cum rem!</div>
+                    <div class="slide" id="slide2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi quo, veniam quas eaque tempore molestiae voluptate dolorum nostrum dicta a neque, autem praesentium modi illum excepturi ex exercitationem ea voluptates?</div>
+                    <div class="slide" id="slide3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde quo minima amet, reiciendis explicabo, quisquam obcaecati blanditiis totam dolores possimus voluptatem quibusdam aut? Quasi quis facere repellat, dolorum praesentium modi.</div>
+                    <div class="slide" id="slide4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius porro, delectus modi quod voluptatem doloremque odio sunt ad tenetur corporis dolores assumenda quis reprehenderit? Fuga dicta magni enim vitae natus.</div>
+                </div>
+            </section>
+            <a href="#slide4">-></a>
+        </main>
+    </body>
+</html>

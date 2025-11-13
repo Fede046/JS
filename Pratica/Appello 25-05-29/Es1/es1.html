@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Document</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body{
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                font-family: Arial,sans-serif;
+                
+            }
+
+            nav{
+                margin: 2rem;
+                display: flex;
+                gap:2rem;
+                height: 2rem;
+                
+                align-items: center;
+            }
+
+            nav ul{
+                list-style: none;        
+                display: flex;
+                gap:1.5rem;
+                
+            }
+            a{
+                color: black;
+                text-decoration: none;
+            }
+
+            nav ul a:hover{
+                color: orange;
+            }
+            /*-----------------*/
+            
+            
+            header {
+                border-bottom: 1px solid gray;
+            }
+            header h1{
+                font-size: 1.5rem;
+
+                padding-bottom: 0.5rem;
+                padding-left: 2rem;
+            }
+            /*--------------*/
+
+            main{ 
+                width: 100vw;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                padding-bottom: 2rem;
+                align-items: center;
+                border-bottom: 1px solid gray;
+            }
+
+            section{
+                width: 60%;
+                
+            }
+
+            section h1{
+                font-size: 1rem;
+            }
+            section p{
+                font-size: 0.6rem;
+            }
+
+
+            /*----------*/
+            /*parte bassa*/
+            main section:nth-of-type(2){
+                display: flex;
+                flex-direction: column;
+            }
+            main section:nth-of-type(2) div{
+                display: flex;
+                justify-content: space-between;
+            }
+            main section:nth-of-type(2) ul{
+                display: flex;
+                gap:1rem;
+                align-items: center;
+                list-style: none;
+                background-color: wheat;
+                border-radius: 10px;
+                padding: 1rem;
+            }
+            main section:nth-of-type(2) a{
+                align-items: center;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                gap:0.5rem;
+                padding: 1rem;
+                border: 2px solid transparent;
+            }
+            main section:nth-of-type(2) a:hover{
+                
+                border:2px solid gray;
+            }
+            main section:nth-of-type(2) a img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50px;
+            }
+
+
+            /*-------------------*/
+            /*carosello*/
+            
+            main section:nth-child(1) {
+                display: flex;
+                flex-direction: column;
+                
+            }
+            main section:nth-child(1) div:nth-child(2) {
+                background-color: aqua;
+                
+            }
+            main section:nth-child(1) div:nth-child(2) div {
+                display: flex;
+                flex-direction: column;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                gap: 1rem;
+                margin-top: 1rem;
+                height: 200px;
+            }
+            main section:nth-child(1) div:nth-child(2) div div{
+                display: flex;
+                flex-direction: row;
+                align-items: end;
+                justify-content: space-between;
+                overflow: hidden;
+            }
+            main section:nth-child(1) div:nth-child(2) div div img{
+                position: relative;
+                bottom: -70px;
+            }
+            main section:nth-child(1) div:nth-child(2) div div p{
+                margin-bottom: 1.5rem;
+                padding: 1rem;
+                border-radius: 20px;
+                background-color: rgb(0, 0, 0);
+                color: white;
+            }
+            main section:nth-child(1) div:nth-child(2) div div p:hover {
+                background-color: grey;
+            }
+
+            /*-----------------------*/
+            /*bottoni*/
+            main > control{
+                
+                width: 60%;
+                justify-content:end;
+                display: flex;
+                gap:1rem;
+                height: 30px;
+            }
+            main > control a{
+                background-color: gray;
+                border-radius:20px ;
+                padding: 0.5rem;
+                text-align: center;
+            }
+
+            control a:hover{
+                background-color: pink;
+            }
+
+        </style>
+    </head>
+    <body>
+        <nav>
+            <img height="100%" width="10%" src="img/Babbel_Logo.jpg" alt="logoBabbel">
+            <ul>
+                <a href="">Home</a>
+                <a href="">Ripasso</a>
+                <a href="">Live</a>
+                <a href="">Esplora</a>
+            </ul> 
+        </nav>
+        
+        <header>
+            <h1>Si comincia, Utente</h1>
+        </header>
+
+        <main>
+            <section>
+                <div>
+                    <p>Primi Passi II (A1.2) - Unità 2</p>
+                    <h1>Descrivere la tua città e dire perchè ti piace</h1>
+                </div>
+
+                <div>
+                    <div>
+                        <p>Esercizi Vocaboli</p>
+                        <h1>È il momento di Ripassare</h1>
+                        <div>
+                            <img width="200" src="img/icons8-sveglia-48.png" >
+                            <p>Ripassa Ora</p>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+            </section>
+
+            <control>
+                
+                
+                    <a><-</a>
+                    <a>-></a>
+                
+            </control>
+            
+            
+            <section>
+                <div>
+                    <h1>Corsi</h1>
+                    <p>Vedi tutto</p>
+                </div>
+
+                <ul>
+                    <a href="">
+                        <img src="img/uomo.png"alt="img">
+                        <p>Grammatica primi passi</p>
+                    </a >
+                    <a href="">
+                        <img src="img/uomo.png"alt="img">
+                        <p>Grammatica primi passi</p>
+                    </a>
+                    <a href="">
+                        <img src="img/uomo.png" alt="img">
+                        <p>Grammatica primi passi</p>
+                    </a>
+                </ul>
+                
+
+            </section>
+               
+        </main>
+
+
+    </body>
+</html>

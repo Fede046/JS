@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>document</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body{
+                padding:2rem;
+                display: flex;
+                flex-direction: column;
+            }
+            header{
+                display: flex;
+                gap:3rem;
+                height: 50vh;
+                align-items: center;
+            }
+
+            .mazzo{
+                height: 150px;
+                align-items: center;
+                width: 100px;
+                background-color: black;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .carta{
+                height: 150px;
+                width: 100px;
+                border: 2px solid green;
+            }
+
+            .mano{
+                border: 2px solid gray;
+                height: 50vh;
+                display: flex;
+                gap:1rem;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .carta.rosso{
+                background-color: red;
+            }
+            .carta.verde{
+                background-color: rgb(36, 201, 75);
+            }
+            .carta.blu{
+                background-color: rgb(55, 32, 225);
+            }
+            .carta.giallo{
+                background-color: rgb(217, 255, 0);
+            }
+            .mazzo.rosso{
+                background-color: red;
+            }
+            .mazzo.verde{
+                background-color: rgb(36, 201, 75);
+            }
+            .mazzo.blu{
+                background-color: rgb(55, 32, 225);
+            }
+            .mazzo.giallo{
+                background-color: rgb(217, 255, 0);
+            }
+
+            .carta{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+
+
+
+        </style>
+    </head>
+    <body>
+
+
+        <header>
+            <button onclick="creaQuadrato()">Pesca</button>
+            <div class="mazzo"></div>
+            <h1 id="turni"></h1>
+        </header>
+
+
+
+        <div class="mano">
+
+
+        </div>
+
+
+
+        <!--JS-->
+
+        <script>
+
+            let turni = -1;
+            
+            const NUMERI = [0,1,2,3,4,5,6,7,8,9];
+            const COLORI = ['V','B','R','G'];
+
+
+            const dizionario_Colori = {
+                'V':'verde',
+                'B':'blu',
+                'G':'giallo',
+                'R':'rosso'
+            }
+
+            function randomNumber(){
+                return NUMERI[Math.floor(Math.random()*NUMERI.length)];
+            }
+
+            function randmColor(){
+                return dizionario_Colori[COLORI[Math.floor(Math.random()*COLORI.length)]];
+            }
+
+            function creaQuadrato(){
+                const cardDiv = document.createElement('div');
+                const colore = randmColor();
+                console.log(colore)
+                const data = Date.now();
+                cardDiv.id = 'carta-'+data;
+                cardDiv.className =`carta ${colore}`;
+
+                /*aggiungo il numero*/
+                const h1Numero = document.createElement('h1');
+                h1Numero.textContent = randomNumber();
+
+                cardDiv.appendChild(h1Numero);
+
+                
+                cardDiv.addEventListener('click', function (){
+                    giocaCarta(data,colore);
+                });
+                
+
+                const myMano = document.getElementsByClassName('mano')[0];
+                myMano.appendChild(cardDiv);
+                aggiornaTurni();
+            }
+
+            function giocaCarta(data,colore){
+                const cardDiv = document.getElementById(`carta-${data}`);
+                const mazzo = document.getElementsByClassName('mazzo')[0];
+                const mazzoClasses = mazzo.className.split(' ');
+                const mazzoColore = mazzoClasses.find(cls => cls!=='mazzo');
+                //controllo colore
+                //prendo il testo dentr il mazzo
+                const h1inMazzo = mazzo.querySelector('h1');
+                const numerMazzo = h1inMazzo.textContent;
+
+                //stessa cosa con cardDiv
+                const h1inCard = cardDiv.querySelector('h1');
+                const numeroCard = h1inCard.textContent;
+
+                if(colore == mazzoColore || numeroCard == numerMazzo){
+                    
+                    mazzo.className = `mazzo ${colore}`;
+                    h1inMazzo.textContent = numeroCard;
+                    cardDiv.remove();
+                    controlloVince();
+                }
+
+            }
+            function controlloVince(){
+                const myMano = document.getElementsByClassName('mano')[0];
+                const myButton = document.getElementsByTagName('button')[0];
+                if(myMano.children.length==0){
+                    myButton.disabled = true;
+                    const h2Vittoria = document.createElement('h2');
+                    h2Vittoria.textContent= `Hai vinto in ${turni} turni`;
+                    document.getElementsByTagName('header')[0].appendChild(h2Vittoria);
+                }
+            }
+
+            function aggiornaTurni(){
+                const h1Turni = document.getElementById('turni');
+                turni++;
+                h1Turni.textContent = `Turno: ${turni}`;
+            }
+
+            function start(){
+                const mazzo = document.getElementsByClassName('mazzo')[0];
+                const colore = randmColor();
+                mazzo.className = `mazzo ${colore}`;
+
+                const h1Numero = document.createElement('h1');
+                h1Numero.textContent = randomNumber();
+
+                mazzo.appendChild(h1Numero);
+
+                creaQuadrato();
+                creaQuadrato();
+                creaQuadrato();
+                turni-=3;
+
+                aggiornaTurni();
+            }
+            start();
+
+
+            
+        </script>
+    </body>
+</html>

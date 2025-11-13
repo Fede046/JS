@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>document</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body{
+                padding:2rem;
+                display: flex;
+                flex-direction: column;
+            }
+            header{
+                display: flex;
+                justify-content: space-between;
+                height: 50vh;
+                align-items: center;
+                padding: 10rem;
+            }
+
+            .mazzo{
+                border: 2px solid black;
+                height: 150px;
+                align-items: center;
+                width: 100px;
+                background-color: black;
+            }
+
+            .carta{
+                height: 150px;
+                width: 100px;
+                border: 2px solid green;
+            }
+
+            .mano{
+                border: 2px solid gray;
+                height: 50vh;
+                display: flex;
+                gap:1rem;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .carta.rosso{
+                background-color: red;
+            }
+            .carta.verde{
+                background-color: rgb(36, 201, 75);
+            }
+            .carta.blu{
+                background-color: rgb(55, 32, 225);
+            }
+            .carta.giallo{
+                background-color: rgb(217, 255, 0);
+            }
+            
+
+
+
+        </style>
+    </head>
+    <body>
+
+
+        <header>
+            <button onclick="creaQuadrato()">Pesca</button>
+            <div class="mazzo"></div>
+        </header>
+
+
+
+        <div class="mano">
+
+
+        </div>
+
+
+
+        <!--JS-->
+
+        <script>
+
+            const COLORI = ['V','B','R','G'];
+            const dizionario_Colori = {
+                'V':'verde',
+                'B':'blu',
+                'G':'giallo',
+                'R':'rosso'
+            }
+
+
+            function randmColor(){
+                return dizionario_Colori[COLORI[Math.floor(Math.random()*COLORI.length)]];
+            }
+
+            function creaQuadrato(){
+                const cardDiv = document.createElement('div');
+                const colore = randmColor();
+                console.log(colore)
+
+                cardDiv.className =`carta ${colore}`;
+                
+                
+
+                
+
+                const myMano = document.getElementsByClassName('mano')[0];
+                myMano.appendChild(cardDiv);
+            }
+            
+        </script>
+    </body>
+</html>

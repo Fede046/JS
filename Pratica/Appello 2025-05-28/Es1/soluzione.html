@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Document</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing: border-box;
+            }
+            body{
+                font-family: Verdana, sans-serif;
+            }
+            /*nav*/
+            nav{
+                width:100%;
+                position:fixed;
+                display:flex;
+                height:3rem;
+                z-index:5;
+                align-items:center;
+                background-color:black;
+            }
+            nav img{
+                height: 100%;
+                width:15%;
+                margin-right:5%;
+            }
+            nav ul{
+                color:white;
+                display:flex;
+                gap:2rem;
+            }
+            nav ul a{
+                color:white;
+            }
+            a{
+                text-decoration:none;
+            }
+            nav ul a:hover{
+                color:orange;
+            }
+            /*---Main--*/
+            main{
+                height:60vh;
+                width:100%;
+            }
+                      
+            main img{
+                position:absolute;
+                z-index:-1;
+                height:60vh;
+                width:100%;
+                object-fit:cover;
+            }
+            main div{
+                padding:2rem;
+                padding-top:4rem;
+                display:flex;
+                gap:1rem;
+                flex-direction:column;
+                color:white;
+                border:2px solid transparent;
+            }
+            main div:hover{
+                border-color:pink;
+            }
+            main div p{
+                font-size:0.9rem;                
+            }
+            main div button{
+                width:200px;
+                padding:0.5rem;
+                cursor:pointer;
+                border:none;
+                background-color:white;
+                font-weight:bold;
+            }
+            main div button:hover{
+                background-color:red;
+                color:white;
+            }
+
+            /*---footer--*/
+            footer{
+                margin-top:1rem;
+                padding:1rem;
+                display:flex;
+                flex-direction:column;
+                background-color:gray;
+                min-height:40vh;
+                width:100%;
+                gap:1rem;
+            }
+            footer section{
+                display:flex;
+                gap:1rem;
+            }
+            section div{
+                display:flex;
+                flex-direction:column;
+                gap:1rem;
+                background-color:white;
+                padding-bottom:1rem;
+                transition:all 0.3s;
+                flex:1;
+            }
+            section div:hover{
+                transform:translateY(-1rem);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            }
+            section div img{
+                position:static;
+                width:100%;
+                height:200px;
+                object-fit:cover;
+            }
+            section div label{
+                font-weight:bold;
+            }
+            section div label,section div p{
+                padding-left:1rem;
+                padding-right:1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <img src="img/wtt_logo_1.webp">
+            <ul>
+                <a href="">NEWS</a>
+                <a href="">VIDEOS</a>
+                <a href="">EVENTS</a>
+                <a href="">MATCHES</a>
+                <a href="">RANKINGS</a>
+            </ul>
+        </nav>
+
+        <main>
+            <img src="img/pingpong.jpg">
+            <div>
+                <label>World Championships</label>
+                <h1>Doubles Drama As Lin And Kao Bring The Heat</h1>
+                <p>The upsets keep on coming at ITTF World Table Tennis Championships Finals Doha 2025, with the Men's Doubles event losing its No.3 seeds on Thursday. Lin Yun-Ju and Kao Cheng-Jui were responsible for the upset, outclassing Lin Shidong and Lin Gaoyuan in four pulsating games (11-5, 11-9, 5..</p>
+                <button>Read More</button>
+            </div>
+        </main>
+        <footer>
+            <h1>Top Stories</h1>
+            <section>
+                <div>
+                    <img src="img/pingpong.jpg">
+                    <label>World Championships</label>
+                    <p>Epic Comeback As Patrick Franziska Overturns 0-3 Deficit</p>
+                </div>
+                <div>
+                    <img src="img/pingpong.jpg">
+                    <label>World Championships</label>
+                    <p>Epic Comeback As Patrick Franziska Overturns 0-3 Deficit</p>
+                </div>
+            </section>
+        </footer>
+    </body>
+</html>

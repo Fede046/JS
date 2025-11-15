@@ -1,7 +1,9 @@
 {
     "Codegeex.RepoIndex": true,
     /*tolo i suggermineti di codice*/
-/*    "editor.suggestOnTriggerCharacters": false,
+//------------------
+/*
+    "editor.suggestOnTriggerCharacters": false,
     "editor.quickSuggestions": {
     "other": false,
     "comments": false,
@@ -9,4 +11,5 @@
 },
 "editor.parameterHints.enabled": false
 */
+//-------------
 }

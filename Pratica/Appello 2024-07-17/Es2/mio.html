@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Document</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+            }
+            body{
+                height:100vh;
+                width:100%;
+                padding:2rem;
+                display:grid;
+                grid-template-columns:50% 50%;
+                grid-template-rows:100%;
+                
+            }
+            section{
+                background-color:green;
+
+            }
+            #secInput{
+                padding:1rem;
+                display:grid;
+                grid-template-rows:10% 10% 10% 10% 10% 40% 10%;
+                
+            }
+            input,textarea{
+                padding:1rem;
+            }
+            #addVoce{
+                width:30%
+            }
+            /*---------------*/
+            #secList{
+                padding:1rem;
+                display:flex;
+                flex-direction:column;
+                gap:1rem;
+            }
+            #container{
+                background-color:white;
+                height:100%;
+                width:100%;
+            }
+            .divRicerca{
+                display:grid;
+                grid-template-columns:20% 60% 20%;
+                grid-template-rows:100%;
+            }
+            /*------------*/
+            .messaggio{
+                width:100%;
+                display:grid;
+                grid-template-columns:80% 20%;
+                grid-template-rows:1fr 1fr;
+                padding:0.5rem;
+                gap:0.5rem;
+                border:2px solid red;
+                font-size:1rem;
+            }
+            .messaggio h2{
+                font-size:0.8rem;
+            }
+
+            .messaggio label{
+                border:2px solid grey;
+                overflow:auto;
+                font-size:0.8rem;
+            }
+            
+
+        </style>
+    </head>
+    <body>
+
+        <section id="secInput">
+            <h1>Titolo</h1>
+            <input id="inTitolo" style="font-weight:bold;" type="text">
+            <h1>Data</h1>
+            <input id="inData" type="date">
+            <h1>Descrizione</h1>
+            <textarea id="inDescrizione"></textarea>
+            <button id="addVoce" onclick="addVoce()" >Aggiungi Voce</button>
+        </section>
+
+        <section  id="secList">
+            
+       
+        <h1>My Diario</h1>
+        
+        <div class="divRicerca">
+            <button onclick="aggiornaLista()">All</button>
+            <input id="inputCerca" type="text">
+            <button id="btnCerca" onclick="cercaTitolo()">Cerca</button>
+        </div>
+
+        <div id="container">
+            
+        </div>
+        </section>
+
+
+        <script>
+
+            let LISTA = [];
+            
+            
+
+            class Voce{
+                constructor(id,titolo,data,descrizione){
+                    this.id=id;
+                    this.titolo=titolo;
+                    this.data=data;
+                    this.descrizione=descrizione;
+                }
+
+            }
+            let totId=0;
+            LISTA.push(new Voce('99','Vivaldi','12/02/2131','noia pura vella'));
+            function numId(){
+                return totId++;
+            }
+
+            function addVoce(){
+                const myTitolo = document.getElementById('inTitolo').value;
+                const myData = document.getElementById('inData').value;
+                const myDesc = document.getElementById('inDescrizione').value;
+                if(myTitolo!='' && myData!='' &&myDesc!=''){
+
+                    LISTA.push(new Voce(numId(),myTitolo,myData,myDesc));
+                    aggiornaLista();
+                }else{
+                    //errore
+                    alert('Copleta tutti i campi');
+                }
+            }
+
+            function aggiornaLista(){
+                let myCont = document.getElementById('container');
+                myCont.innerHTML='';
+                
+                
+                for(let i=0;i<LISTA.length;i++){
+                    let messaggio = document.createElement('div');
+                    messaggio.className = 'messaggio';
+
+                    let titolo = document.createElement('h1');
+                    titolo.textContent = LISTA[i].titolo;
+                    messaggio.appendChild(titolo);
+
+                    let data = document.createElement('h2');
+                    data.textContent = LISTA[i].data;
+                    messaggio.appendChild(data);
+
+                    let descr = document.createElement('label');
+                    descr.textContent = LISTA[i].descrizione;
+                    messaggio.appendChild(descr);
+
+                    let butt = document.createElement('button');
+                    butt.textContent = 'Rimuovi';
+                    butt.addEventListener('click',function(){
+                        riumoviVoce(LISTA[i].id);
+                    });
+                    messaggio.appendChild(butt);
+
+                    myCont.appendChild(messaggio);
+                    
+                }
+            }
+            function riumoviVoce(myId){
+                
+                for(let i=0;i<LISTA.length;i++){
+                    if(LISTA[i].id == myId){
+                       
+                        LISTA.splice(i,1);
+                    }
+                }
+
+                aggiornaLista();
+            }
+
+            function cercaTitolo(){
+                let LISTATITOLI = [];
+                const inputTit = document.getElementById('inputCerca').value;
+                let myCont = document.getElementById('container');
+                myCont.innerHTML='';
+                
+                for (let i=0;i<LISTA.length;i++){
+                    if(LISTA[i].titolo ==inputTit ){
+                        LISTATITOLI.push(LISTA[i]);
+                        
+                    }
+                }
+               
+                for(let i=0;i<LISTATITOLI.length;i++){
+                    let messaggio = document.createElement('div');
+                    messaggio.className = 'messaggio';
+
+                    let titolo = document.createElement('h1');
+                    titolo.textContent = LISTATITOLI[i].titolo;
+                    messaggio.appendChild(titolo);
+
+                    let data = document.createElement('h2');
+                    data.textContent = LISTATITOLI[i].data;
+                    messaggio.appendChild(data);
+
+                    let descr = document.createElement('label');
+                    descr.textContent = LISTATITOLI[i].descrizione;
+                    messaggio.appendChild(descr);
+
+                    let butt = document.createElement('button');
+                    butt.textContent = 'Rimuovi';
+                    butt.addEventListener('click',function(){
+                        console.log('cioaoaoas')
+                        console.log(LISTATITOLI);
+                        riumoviVoce(LISTATITOLI[i].id);
+                    });
+                    messaggio.appendChild(butt);
+
+                    myCont.appendChild(messaggio);
+                    
+                }
+                
+            }
+            aggiornaLista();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            align-items: center;
+            justify-content: center;
+            padding: 5rem;
+        }
+
+        main {
+            width: 100%;
+            height: 60vh;
+            display: grid;
+            grid-template-rows: 20% 60% 20%;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-areas:
+                'box1 box1 box1'
+                'box2 box2 box2'
+                'box3 box4 box5';
+            border: 1px solid black;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <input id="myInput" type="number" style="padding:1rem; grid-area: box1">
+        <h1 id="myH1" style="font-size: 10rem; grid-area: box2; border: 1px solid black;text-align: center">0</h1>
+        <button id="btnStart" onClick="myStart()">START</button>
+        <button onClick="myStop()">STOP</button>
+        <button onClick="myRestart()">RESTART</button>
+    </main>
+
+
+
+    <script>
+        let timer = null;
+        let arresto = false;
+        let variabile = null;
+
+        function myStart() {
+            const myMax = document.getElementById('myInput').value;
+            const myH1 = document.getElementsByTagName('h1')[0];
+            document.getElementById('btnStart').disabled = true;
+
+            if (controllo(myMax)) {
+
+                arresto = false;
+                let counter;
+
+                if (variabile != null) {
+                    counter = variabile;
+                } else {
+                    counter = myMax;
+                }
+
+
+                timer = setInterval(function () {
+
+                    if (arresto) {
+                        variabile = counter;
+                        clearInterval(timer);
+                        alert('Timer interrotto');
+                        document.getElementById('btnStart').disabled = false;
+
+                        return;
+                    }
+
+                    myH1.textContent = counter;
+
+                    if (counter === 0) {
+                        clearInterval(timer);
+                        alert('Timer finito');
+                        variabile = null;
+                        document.getElementById('btnStart').disabled = false;
+
+                    }
+                    counter--;
+
+
+
+                }, 1000)
+
+            }
+
+
+        }
+        function myRestart() {
+            clearInterval(timer);
+            arresto = true;
+            variabile = null;
+            myStart();
+        }
+
+        function myStop() {
+            arresto = true;
+        }
+
+        function controllo(num) {
+            if (num < 0 || num == '') {
+                alert('Errore numero negativo');
+                return false;
+            }
+            return true;
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <mata charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Doc</title>
+        <style>
+            .mostro {
+                width: 150px;
+                padding: 10px;
+                margin: 10px;
+                border-radius: 10px;
+                background-color: #ffd37a;
+                border: 2px solid #cc9c3a;
+                text-align: center;
+                transition: all 0.5s ease;
+            }
+
+            .mostro.felice {
+                font-weight: bold;
+                background-color: #7af57a;
+                border-color: #3a9c3a;
+                transform: scale(1.05);
+            }
+
+            #areaMostri {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        </style>
+</head>
+
+<body>
+
+    <main>
+        <h1>Sono un testo</h1>
+        <button id="genera">Premi</button>
+        <div id="areaMostri"></div>
+    </main>
+
+    <script>
+
+        genera.addEventListener('click', aggiungi);
+
+        function aggiungi() {
+            console.log('test')
+            const area = document.getElementById('areaMostri');
+            let m1 = document.createElement('div');
+            let btn1 = document.createElement('button');
+            let btn2 = document.createElement('button');
+            m1.className = 'mostro';
+            area.appendChild(m1);
+        }
+
+
+    </script>
+</body>
+
+</html>

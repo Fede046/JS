@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #p1.active {
+            font-weight: bold;
+            color: red;
+        }
+
+        #p3.active {
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Esercizio 1</h1>
+    <p id="p1">Il testo1</p>
+    <p>Il testo2</p>
+    <p id="p3">Il testo3</p>
+
+    <button onClick="cambia()">Premi</button>
+
+
+    <script>
+
+        function cambia() {
+            const p1 = document.getElementById('p1');
+            const p3 = document.getElementById('p3');
+            p1.className = 'active';
+            p3.className = 'active';
+
+        }
+    </script>
+</body>
+
+</html>

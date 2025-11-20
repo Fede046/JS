@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: green;
+
+            display: flex;
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        main {
+            width: 80%;
+            background-color: white;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            align-items: center;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        section {
+            height: 100%;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            gap: 2rem;
+            font-size: 1rem;
+        }
+
+        input,
+        button {
+            font-size: 1rem;
+        }
+
+        /*-------------------------*/
+        ul {
+            padding: 1rem;
+            height: 100%;
+            width: 100%;
+            background-color: red;
+        }
+
+        ul div {
+            display: flex;
+            border: 1px solid black;
+            gap: 1rem;
+            padding: 0.5rem;
+            justify-content: space-between;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <section id="Crea">
+            <h1>Crea contatto</h1>
+            <span>Name: </span>
+            <input type="string">
+            <span>Number: </span>
+            <input type="number">
+            <span>Email: </span>
+            <input type="email">
+
+            <button onClick="crea()">Crea contatto</button>
+        </section>
+        <section id="Rubrica">
+            <h1>Rubrica</h1>
+            <ul>
+                <div>
+                    <span>Matteo</span>
+                    <button onClick="elimina()">Rimuovi</button>
+                </div>
+            </ul>
+        </section>
+    </main>
+
+
+    <script>
+
+        class Utente {
+            constructor(name, number, email) {
+                this._name = name;
+                this._number = number;
+                this._email = email;
+            }
+            get name() {
+                return this._name;
+            }
+        }
+        let listaUtenti = [];
+
+        function crea() {
+            const arrayInput = document.getElementsByTagName('input');
+            let controllo = true;
+            for (let j = 0; j < arrayInput.length; j++) {
+                if (arrayInput[j].value == '') {
+                    alert('Inserisci campi');
+                    controllo = false;
+
+                }
+                console.log(arrayInput[j].value);
+            }
+
+            for (let k = 0; k < listaUtenti.length; k++) {
+                if (listaUtenti[k].name == arrayInput[0].value) {
+                    controllo = false;
+                    alert('Nome doppione');
+                }
+            }
+            if (controllo) {
+                const a = new Utente(arrayInput[0].value, arrayInput[1].value, arrayInput[2].value);
+                console.log(a.name);
+                listaUtenti.push(a);
+                console.log(listaUtenti);
+                aggiorna();
+
+            }
+        }
+
+        function aggiorna() {
+            const myUl = document.getElementsByTagName('ul')[0];
+            myUl.innerHTML = '';
+
+            const nomiUtenti = [];
+            for (let i = 0; i < listaUtenti.length; i++) {
+                nomiUtenti[i] = listaUtenti[i].name;
+            }
+            nomiUtenti.sort();
+            console.log(nomiUtenti);
+            for (let i = 0; i < nomiUtenti.length; i++) {
+                const myDiv = document.createElement('div');
+                const mySpan = document.createElement('span');
+                mySpan.textContent = nomiUtenti[i];
+                let myButton = document.createElement('button');
+                myButton.textContent = 'Rimuovi';
+                myButton.addEventListener('click', function () {
+                    elimina(nomiUtenti[i]);
+                });
+                myDiv.appendChild(mySpan);
+                myDiv.appendChild(myButton);
+
+
+                myUl.appendChild(myDiv);
+            }
+        }
+        //quando rimuoo un elemtno gli elemnti si spostano se parto
+        //all'indietro risolvo il problema
+        function elimina(nome) {
+            for (let i = listaUtenti.length - 1; i >= 0; i--) {
+                if (listaUtenti[i].name === nome) {
+                    listaUtenti.splice(i, 1);
+                }
+            }
+            aggiorna();
+        }
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

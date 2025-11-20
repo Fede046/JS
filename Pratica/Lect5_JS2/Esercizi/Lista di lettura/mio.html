@@ -1,29 +1,115 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-device,initial-scale=1">
-        <title>Document</title>
-        <style>
-            *{
-                margin:0;
-                padding: 0;
-                box-sizing: border-box;
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        main {
+            height: 200px;
+            width: 100%;
+            display: grid;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 50% 50%;
+        }
+
+
+        button {
+
+
+            padding: 1rem;
+            background-color: green;
+
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+
+        ul {
+            color: green;
+            padding: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Libri</h1>
+    <main>
+        <div>
+            <p>Crime</p>
+            <button onClick="aggiungi(1)">Aggiungi alla lista</button>
+        </div>
+        <div>
+            <p>Pinocchio</p>
+            <button onClick="aggiungi(2)">Aggiungi alla lista</button>
+        </div>
+        <div>
+            <p>Gli argonauti</p>
+            <button onClick="aggiungi(3)">Aggiungi alla lista</button>
+        </div>
+        <div>
+            <p>Tecnologie Web</p>
+            <button onClick="aggiungi(4)">Aggiungi alla lista</button>
+        </div>
+        <div>
+            <p>La rosa</p>
+            <button onClick="aggiungi(5)">Aggiungi alla lista</button>
+        </div>
+    </main>
+    <h1>Lista di lettura</h1>
+    <ul>proba</ul>
+
+    <script>
+
+        let lista = [];
+
+        function aggiungi(num) {
+            const parola = document.getElementsByTagName('p')[num].textContent;
+            console.log(parola);
+            lista.push(parola);
+            aggiorna();
+        }
+
+        function aggiorna() {
+            const myUl = document.getElementsByTagName('ul')[0];
+            myUl.innerHTML = '';
+            lista.sort();
+
+            //let uniqueValues = Array.from(new Set(lista));
+            let uniqueValues = [];
+            for (let i = 0; i < lista.length; i++) {
+                const p = lista[i];
+                let temp = true;
+                for (let j = 0; j < uniqueValues.length; j++) {
+                    if (uniqueValues[j] == p) {
+                        temp = false;
+                    }
+                }
+                if (temp) {
+                    const myLi = document.createElement('li');
+                    myLi.textContent = p;
+                    myUl.appendChild(myLi);
+
+                }
+
             }
+        }
 
-            
 
+    </script>
+</body>
 
-        </style>
-    </head>
-
-    <body>
-
-        <h1>Libri</h1>
-        <
-
-        <script>
-
-        </script>
-    </body>
 </html>

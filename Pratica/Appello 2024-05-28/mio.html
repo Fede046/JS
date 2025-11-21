@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Docuemt</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+            }
+            header{
+                padding: 2rem;
+                display:flex;
+                justify-content: space-between;
+            }
+            section{
+                padding: 2rem;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <header>
+            <div>
+                <h1>Valore iniziale</h1>
+                <input id="numberInput" type="number">
+                <select id="valutaInput">
+                    <option>EUR</option>
+                    <option>USD</option>
+                </select>
+                <button onClick="send()">Invia</button>
+            </div>
+            <div>
+                <h1>Output</h1>
+                <h2 id="h1Out"></h2>
+                <select id="selectOut">
+                    <option>EUR</option>
+                    <option>USD</option>
+                </select>
+            </div>
+        </header>  
+        <section>
+            <div>
+                <h1>EUR -> USD</h1>
+                <input id="valueEUR" type="number">
+            </div>
+            <div>
+                <h1>USD -> EUR</h1>
+                <input id="valueUSD" type="number">
+            </div>
+        </section>
+        
+
+
+        <script>
+
+            class Cambio{
+                constructor(nameInput,nameOutput,valore){
+                    this._nameInput=nameInput;
+                    this._nameOutput=nameOutput;
+                    this._valore=valore;
+                }
+                get valore(){
+                    return this._valore;
+                }
+                get nameInput(){
+                    return this._nameInput;
+                }
+                get nameOutput(){
+                    return this._nameOutput;
+                }
+            }
+            let listaCambi = [new Cambio('EUR','USD',1.1),new Cambio('USD','EUR',0.91),new Cambio('EUR','EUR',1),new Cambio('USD','USD',1)];
+
+            function send(){
+                caricaCambi();
+                const numInput = document.getElementById('numberInput').value;
+                const typeInput = document.getElementById('valutaInput').value;
+                
+                const typeOutput = document.getElementById('selectOut').value;
+                const myH1 = document.getElementById('h1Out');
+
+                for(let i=0;i<listaCambi.length;i++){
+                    
+                    if(listaCambi[i].nameInput == typeInput && listaCambi[i].nameOutput == typeOutput){
+                        
+                        
+                        myH1.textContent =  numInput*parseFloat(listaCambi[i].valore);  
+                    }
+                }
+
+            }
+
+            function caricaCambi(){
+                listaCambi = [];
+                
+                const myvalueEUR = document.getElementById('valueEUR').value;
+                const myvalueUSD = document.getElementById('valueUSD').value;
+
+                listaCambi = [
+                    new Cambio('EUR','USD',myvalueEUR),
+                    new Cambio('USD','EUR',myvalueUSD),
+                    new Cambio('USD','USD',1),
+                    new Cambio('EUR','EUR',1)
+                ]
+
+            }
+
+            function start(){
+                const myvalueEUR = document.getElementById('valueEUR');
+                const myvalueUSD = document.getElementById('valueUSD');
+
+                const numInput = document.getElementById('numberInput');
+                numInput.value = 0;
+                
+                myvalueEUR.value = 1.1;
+                myvalueUSD.value = 0.91;
+                caricaCambi();
+                send();
+            }
+
+
+            start();
+
+        </script>
+    </body>
+</html>

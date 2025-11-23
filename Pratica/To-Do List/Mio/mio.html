@@ -74,7 +74,7 @@
             border-radius: 10px;
         }
 
-        main div:nth-child(1) div {
+        main>div:nth-child(1) div {
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -82,41 +82,40 @@
             padding: 0.5rem;
         }
 
-        main div:nth-child(1) div button {
+        main>div:nth-child(1) div button {
             padding: 0.5rem 1rem 0.5rem 1rem;
             transition: all 0.3s;
             border-radius: 10px;
         }
 
-        main div:nth-child(1) div button:nth-child(1) {
-
+        main>div:nth-child(1) div button:nth-child(1) {
             border-color: red;
         }
 
-        main div:nth-child(1) div button:nth-child(2) {
+        main>div:nth-child(1) div button:nth-child(2) {
 
             border-color: yellow;
         }
 
-        main div:nth-child(1) div button:nth-child(3) {
+        main>div:nth-child(1) div button:nth-child(3) {
 
             border-color: green;
 
         }
 
-        main div:nth-child(1) div button:nth-child(1).active {
+        main>div:nth-child(1) div button:nth-child(1).active {
             background-color: red;
         }
 
-        main div:nth-child(1) div button:nth-child(2).active {
+        main>div:nth-child(1) div button:nth-child(2).active {
             background-color: yellow;
         }
 
-        main div:nth-child(1) div button:nth-child(3).active {
+        main>div:nth-child(1) div button:nth-child(3).active {
             background-color: green;
         }
 
-        main div:nth-child(1)>button {
+        main>div:nth-child(1)>button {
             padding: 0.5rem 1rem 0.5rem 1rem;
             background-color: red;
             border-radius: 10px;
@@ -124,13 +123,13 @@
 
         }
 
-        main div:nth-child(1) ul {
+        main>div:nth-child(1) ul {
             display: flex;
             flex-direction: column;
             gap: 0.3rem;
         }
 
-        main div:nth-child(1) ul button {
+        main>div:nth-child(1) ul button {
 
             border-radius: 10px;
             color: rgb(0, 0, 0);
@@ -138,19 +137,19 @@
             padding: 1rem;
         }
 
-        main div:nth-child(1) ul button.active {
+        main>div:nth-child(1) ul button.active {
             background-color: blue;
             color: white;
         }
 
 
         /*---------------*/
-        main div:nth-child(2) ul {
+        main>div:nth-child(2) ul {
             border-bottom: 1px solid gray;
 
         }
 
-        main div:nth-child(2) div {
+        main>div:nth-child(2) div {
             display: grid;
             height: 2rem;
             grid-template-columns: 1fr 1fr 1fr;
@@ -158,12 +157,13 @@
 
         }
 
-        main div:nth-child(2) button {
+        main>div:nth-child(2) button {
             border-radius: 10px;
+
             border: 1px solid gray;
         }
 
-        main div:nth-child(2) button:hover {
+        main>div:nth-child(2) button:hover {
             border: 1px solid black;
         }
 

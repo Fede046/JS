@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Document</title>
+        <style>
+            *{
+                margin:0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body{
+                padding:2rem;
+            }
+        </style>
+    </head>
+    <body>
+
+
+        <h1>Calcolare: la motiplicazione e la divisione di due numeri</h1>
+        <h2>Basta inserire due numeri e premere un pulsante!</h2>
+
+        <span>1 numero</span>
+        <input id="input1" type="number">
+        <br>
+        <span>2 numero</span>
+        <input id="input2" typre="number">
+        <br>
+        <button onClick="calcolo('moltiplica')">Moltiplicare</button>
+        <button onClick="calcolo('dividi')">Dividere</button>
+        <br><br>
+        <p>Il risolutato è:</p>
+        <p id="output"></p>
+        <br>
+        <p>Numeri magici del giorno:</p>
+        <ul id="ulNumMagi">
+
+        </ul>
+        <br>
+        <p>Numeri magici <span style="font-weight:bold">trovati</span>:</p>
+        <ul id="ulNumTrov" ></ul>
+        <br>
+        
+        <p>Elenco delle tue moltiplicazioni e divisioni:</p>
+        <ul id="ulCalcoli"></ul>
+        
+        <script>
+
+            let list_Magici=[];
+            let list_Trovati = [];
+            let list_Elenco = [];
+
+            function start(){
+                for(let i=0;i<7;i++){
+                    let numRan = Math.floor(Math.random()*(200));
+                    list_Magici.push(numRan)
+                    
+
+                }
+                
+
+                daListUl(list_Magici,'ulNumMagi');
+            }
+
+            function daListUl(myList,id){
+                const myUl = document.getElementById(id);
+                myUl.innerHTML='';
+                myList.sort((a, b) => a - b);
+                
+                for(let i=0;i<myList.length;i++){
+                    let myLi = document.createElement('li');
+                    myLi.textContent = myList[i];
+                    console.log(myList[i]);
+                    myUl.appendChild(myLi);
+                }
+            }
+
+            function calcolo(tipo){
+
+                const num1 = document.getElementById('input1').value;
+                const num2 = document.getElementById('input2').value;
+
+                let risultato;
+
+                if(tipo=='moltiplica'){
+                    risultato = num1*num2;
+                    list_Elenco.push(`${num1} * ${num2} = ${risultato}`);
+                }else{
+                    risultato = (num1/num2).toFixed(2);
+                    list_Elenco.push(`${num1} / ${num2} = ${risultato}`);
+                }
+                daListUl(list_Elenco,'ulCalcoli');
+
+                let myP = document.getElementById('output');
+                myP.textContent = risultato;
+
+                if(controllo(risultato)){
+                    list_Trovati.push(risultato);
+                    daListUl(list_Trovati,'ulNumTrov');
+                }
+
+
+            }
+            function controllo(numero){
+                let temp=false;
+                for(let i=0;i<list_Magici.length;i++){
+                    if(list_Magici[i]==numero){
+                        temp=true;
+                    }
+                }
+                return temp;
+            }
+
+            
+
+
+
+
+            start();
+
+        </script>
+    </body>
+</html>

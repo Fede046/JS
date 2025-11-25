@@ -1,0 +1,87 @@
+<!DOCYPE html>
+    <html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Doc</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+
+            button {
+                padding: 2rem;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <h1>Morra Cinese</h1>
+        <button onClick="send('Sasso')">Sasso</button>
+        <button onClick="send('Carta')">Carta</button>
+        <button onClick="send('Forbice')">Forbici</button>
+
+        <p id="output"></p>
+        <h1>Vittorie:<span id="risV"></span></h1>
+        <h1>Sconfitte:<span id="risS"></span></h1>
+        <h1>Paregi:<span id="risP"></span></h1>
+
+        <p id="finalMess"></p>
+        <script>
+
+            let send_PC = ['Carta', 'Forbice', 'Sasso'];
+            let list_Ris = [0, 0, 0];
+            function send(tipe) {
+                let random = Math.floor(Math.random() * (3));
+                console.log(random);
+                const numPC = send_PC[random];
+
+                const out = document.getElementById('output');
+                out.textContent = `(uomo)${tipe} -> (PC) ${numPC}`
+
+                if (tipe == numPC) {
+                    Risultato(0, 'risP');
+                } else if (tipe == 'Carta' && numPC == 'Forbice' || tipe == 'Forbice' && numPC == 'Sasso' || tipe == 'Sasso' && numPC == 'Carta') {
+                    Risultato(1, 'risS');
+                } else {
+                    Risultato(2, 'risV');
+                }
+                Controllo();
+            }
+
+            function Controllo() {
+                let fine = false;
+                const temp = document.getElementById('finalMess');
+                if (list_Ris[2] == 3) {
+                    fine = true;
+                    temp.textContent = 'Hai vinto';
+                } else if (list_Ris[1] == 3) {
+                    fine = true;
+                    temp.textContent = 'hai perso';
+                }
+                if (fine) {
+                    const bt = document.getElementsByTagName('button');
+                    for (let i = 0; i < bt.length; i++) {
+                        bt[i].disabled = true;
+
+                    }
+
+                }
+            }
+
+
+            function Risultato(val, id) {
+                list_Ris[val]++;
+                const mySpan = document.getElementById(id);
+                mySpan.textContent = list_Ris[val];
+            }
+
+        </script>
+    </body>
+
+    </html>

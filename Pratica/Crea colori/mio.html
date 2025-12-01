@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Daddd</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            flex-direction: column;
+        }
+
+        main {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <di>
+        <p>Numero mosse: <span id="nMosse">0</span></p>
+        <p>Punteggio: <span id="punteggio">0</span></p>
+    </di>
+    <main>
+
+    </main>
+
+
+    <script>
+        let LIST_Col = ['red', 'green', 'blue', 'orange']
+        let mylist;
+        let mano = [];
+
+        function start() {
+            fillMain();
+        }
+        function fillMain() {
+            mylist = [...LIST_Col, ...LIST_Col];
+            mylist.sort(() => Math.random() - 0.5);
+            console.log(mylist);
+
+            const myMain = document.getElementsByTagName('main')[0];
+            for (let i = 0; i < mylist.length; i++) {
+                const myDiv = document.createElement('div');
+                myDiv.className = 'card';
+                myDiv.style.width = '100px';
+                myDiv.style.height = '100px';
+                myDiv.style.backgroundColor = 'gray';
+                myDiv.addEventListener('click', function () {
+                    scopri(i);
+                });
+                myMain.appendChild(myDiv);
+            }
+
+        }
+        function scopri(index) {
+            let myCard = document.getElementsByClassName('card')[index];
+            myCard.style.backgroundColor = mylist[index];
+            mano.push(index);
+            if (scoperte()) {
+
+            }
+        }
+
+        function scoperte() {
+
+        }
+
+        start();
+    </script>
+</body>
+
+</html>

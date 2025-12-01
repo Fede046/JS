@@ -25,6 +25,9 @@
             grid-template-columns: 1fr 1fr 1fr 1fr;
             gap: 1rem;
         }
+        .card.copre{
+            background-color:gray;
+        }
     </style>
 </head>
 
@@ -41,7 +44,10 @@
     <script>
         let LIST_Col = ['red', 'green', 'blue', 'orange']
         let mylist;
-        let mano = [];
+        let mano=[];
+        const mioGestore = function () {
+                    scopri(i);
+                }
 
         function start() {
             fillMain();
@@ -54,13 +60,11 @@
             const myMain = document.getElementsByTagName('main')[0];
             for (let i = 0; i < mylist.length; i++) {
                 const myDiv = document.createElement('div');
-                myDiv.className = 'card';
+                myDiv.className = 'card.copre';
                 myDiv.style.width = '100px';
                 myDiv.style.height = '100px';
-                myDiv.style.backgroundColor = 'gray';
-                myDiv.addEventListener('click', function () {
-                    scopri(i);
-                });
+                
+                myDiv.addEventListener('click',mioGestore );
                 myMain.appendChild(myDiv);
             }
 
@@ -69,13 +73,26 @@
             let myCard = document.getElementsByClassName('card')[index];
             myCard.style.backgroundColor = mylist[index];
             mano.push(index);
-            if (scoperte()) {
-
+            if (mano.length==2 && mano[0]!=mano[1]) {
+                controllo()
+                mano=[];
             }
         }
 
-        function scoperte() {
+        function controllo() {
+            
 
+            const myM0 = document.getElementsByClassName('card')[mano[0]];
+            const myM1 = document.getElementsByClassName('card')[mano[1]];
+            
+            if(mylist[mano[0]]==mylist[mano[1]]){
+                setTimeout(()=>{
+                    myM0.classList.remove('copre')
+                    myM1.classList.remove('copre')
+                    temp=true;
+                },1000)
+            }
+           
         }
 
         start();

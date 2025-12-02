@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Doooo</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+            }
+            #banco{
+                width:100%;
+                height: 30vh;
+                background-color: skyblue;
+                display: flex;
+                gap: 2rem;
+                align-items: center;
+                justify-content:center;
+            }
+            .carta{
+                padding: 50px;
+                background-color:green;
+            }
+            footer{
+                margin-top: 4rem;
+                width:100%;
+                height: 30vh;
+                justify-content:center;
+                background-color: rgb(18, 127, 170);
+                display: flex;
+                gap:2rem;
+                align-items: center;
+            }
+            button{
+                padding:3rem;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <section id="banco">
+            <button onClick="invia('maggiore')">Maggiore</button>
+            <p class="carta" id="cartaBanco"></p>
+            <button onClick="invia('minore')">Minore</button>
+        </section>
+        
+        <footer>
+            <p>Punteggio: <span>0</span></p>
+            <p class="carta" id="cartaMano">
+                
+            </p>
+        </footer>
+    <script>
+        let punteggio = 0;
+
+        function start(){
+            roll();
+            
+        }
+        function roll(){
+            riempi('cartaMano');
+            riempi('cartaBanco');
+            const mySpan = document.getElementsByTagName('span')[0];
+            mySpan.textContent = punteggio;
+        }
+        function invia(val){
+            const myCMano = document.getElementById('cartaMano').textContent;
+            const myCBanco = document.getElementById('cartaBanco').textContent;
+            
+            let numM = parseInt(myCMano);
+            let numB = parseInt(myCBanco);
+            
+            if(val=='maggiore'){
+                if(numM>=numB){
+                    punteggio++;
+                    console.log('dad')
+                }else{
+                    alert('errore');
+                    punteggio = 0;
+                } 
+            }else{
+                if(numM<=numB){
+                    punteggio++;
+                }else{
+                    alert('errore');
+                    punteggio = 0;
+                }  
+            }
+            roll();
+        }
+
+        function riempi(id){
+            let num = Math.floor(Math.random()*(10));
+            const myCMano = document.getElementById(id);
+            myCMano.textContent = num;
+            
+        }
+
+        start();
+    </script>
+    </body>
+
+</html>

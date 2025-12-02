@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Memory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        main {
+            width: 100%;
+            height: 60vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .coperta {
+            background-color: gray;
+        }
+
+        .noncliccabile {
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <p>Punteggio: <span>0</span></p>
+        <p>Mosse: <span>0</span></p>
+    </div>
+    <main id="container">
+
+    </main>
+
+
+    <script>
+        let cardList = [];
+        let mano = [];
+        let myP = 0;
+        let myM = 0;
+
+        function Card(colore, indice, accoppiata) {
+            this.colore = colore;
+            this.indice = indice;
+            this.accoppiata = accoppiata;
+        }
+
+
+        function scopri(i) {
+            console.log(i)
+            let myCard = cardList[i];
+            let color = myCard.colore;
+            let indice = myCard.indice;
+            let myC = document.getElementsByClassName('carta')[i];
+            myC.style.backgroundColor = color;
+            mano.push(myCard);
+            myM += 1;
+            if (mano.length == 2) {
+                controllo();
+                mano = [];
+            }
+            update();
+
+        }
+        function controllo() {
+            let myC0 = document.getElementsByClassName('carta')[mano[0].indice];
+            let myC1 = document.getElementsByClassName('carta')[mano[1].indice];
+            console.log(myC0.colore)
+            if (mano[0].colore == mano[1].colore && mano[0].indice != mano[1].indice) {
+                myC0.className = 'noncliccabile';
+                myC1.className = 'noncliccabile';
+                myC0.style.backgroundColor = 'black';
+                myC1.style.backgroundColor = 'black';
+                myP += 100;
+            } else {
+                setTimeout(function () {
+                    myC0.style.backgroundColor = 'gray';
+                    myC1.style.backgroundColor = 'gray';
+                }, 1000);
+            }
+
+        }
+        function update() {
+            let mySpans = Array.from(document.getElementsByTagName('span'));
+            mySpans[0].textContent = myP;
+            mySpans[1].textContent = myM;
+        }
+
+
+        function start() {
+            let myCol = ['green', 'red', 'violet', 'blue', 'brown', 'yellow', 'pink', 'orange']
+            let totCol = [...myCol, ...myCol];
+            totCol.sort(() => Math.random() - 0.5);
+            const myCont = document.getElementById('container');
+            for (let i = 0; i < 16; i++) {
+                cardList.push(new Card(totCol[i], i, false))
+                let myCard = document.createElement('div');
+                myCard.className = 'carta coperta';
+                myCard.addEventListener('click', function () {
+                    scopri(i);
+                });
+                myCont.appendChild(myCard)
+            }
+        }
+
+
+
+
+        start();
+    </script>
+</body>
+
+</html>

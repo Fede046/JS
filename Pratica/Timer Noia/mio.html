@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        main {
+            width: 100%;
+            height: 60vh;
+            background-color: green;
+        }
+
+        main button {
+            padding: 2rem;
+        }
+
+        main h1 {
+            font-size: 5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <p></p>
+    <main>
+        <button onClick="start()">Start</button>
+        <button onClick="pause()">Pause</button>
+        <button onCLick="restart()">Restart</button>
+        <h1></h1>
+        <p></p>
+    </main>
+
+    <script>
+        let attuale = [0, 0, 0];
+        let intervalId = null;
+        let goal;
+        let interrompi = false;
+
+        function inizio() {
+            restart();
+            goal = Math.floor(Math.random() * 10);
+            const myP = document.getElementsByTagName('p')[0];
+            myP.textContent = goal;
+        }
+        function start() {
+            if (intervalId != null) {
+                return;
+            }
+            intervalId = setInterval(incremento, 10)
+
+        }
+        function pause() {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+        function incremento() {
+            console.log('ff')
+            attuale[2] += 1;
+            if (attuale[2] == 60) {
+                attuale[2] = 0;
+                attuale[1] += 1;
+                if (attuale[1] == 60) {
+                    attuale[0] += 1;
+                    attuale[1] = 0;
+                }
+            }
+            updateTimer();
+        }
+        function updateTimer() {
+            const myH1 = document.getElementsByTagName('h1')[0];
+            myH1.textContent = `${attuale[0]} : ${attuale[1]} : ${attuale[2]}`
+        }
+        function restart() {
+            pause();
+            attuale = [0, 0, 0];
+            updateTimer();
+        }
+
+
+        inizio();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Doc</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+            }
+            body{
+                padding: 2rem;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <textarea></textarea>
+        <button onClick="send()">Send</button>
+        <p></p>
+        <script>
+
+            function send(){
+                const myT = document.getElementsByTagName('textarea')[0];
+                let myText = myT.value;
+                
+                let array = myText.split(',').map(item => item.trim())
+                let listNum = [];
+
+                for(i of array){
+                    listNum.push(i[0]);
+                }
+                listNum.sort();
+                console.log(listNum);
+
+                const myP = document.getElementsByTagName('p')[0];
+                myP.textContent = listNum;
+            }
+            
+        </script>
+    </body>
+</html>

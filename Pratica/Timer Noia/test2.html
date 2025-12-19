@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+
+<body>
+	<p>0</p>
+	<button onClick='start()'>Start</button>
+	<button onClick='stop()'>Stop</button>
+	<button onClick='resume()'>Resume</button>
+    <script>
+    	let num = 0;
+    	let temp = null;
+    	
+    	function start(){
+    		temp = setInterval(conta,1000);	
+    			
+    	}
+    	function conta(){
+    		num++;
+    		const myP = document.getElementsByTagName('p')[0];
+    		myP.textContent = num;
+    	}
+    	function stop(){
+    		clearInterval(temp);	
+    		
+    	}
+    	function resume(){
+    		num = 0;	
+    	}
+    	
+    	
+    	
+   		
+    </script>
+</body>
+
+</html>

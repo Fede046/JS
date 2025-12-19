@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1'>
+		<title>Das</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				box-sizing: border-box;
+			}
+			main{
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr 1fr;
+				grid-template-rows: 1fr 1fr 1fr 1fr;
+				gap: 1rem;
+				
+			}
+			
+			.disattiva{
+				background-color: gray;
+				pointer-events: none;
+			}
+		</style>
+	</head>
+	
+	<body>
+			
+		<main>
+			
+		</main>
+	
+	
+		<script>
+			let myL = ['A','B','C','D','E','F','G','H'];	
+			let mano = [];
+			let myLetters = [...myL,...myL];
+			let myCard = [];
+		
+			function start(){
+				fillMain();
+				
+			}
+			
+			function fillMain(){
+				const myCont= document.getElementsByTagName('main')[0];
+				myCont.innerHTML = '';
+				myLetters.sort(() => Math.random() - 0.5);
+				for(let i in myLetters){
+					const myP = document.createElement('button');
+					myP.textContent = 'X';
+					myP.addEventListener('click',function(){scopri(i)});
+					myCard.push({colore: myLetters[i],coperta:true});
+					myCont.appendChild(myP);
+				}
+				
+				
+			}
+			
+			function scopri(index){
+				mano.push({car: myCard[index], indice: index});
+				
+				console.log(myCard[index].colore);
+				
+				const myC = document.getElementsByTagName('button')[index];
+				myC.textContent = myCard[index].colore;
+				
+				if(mano.length ==2){
+					controllo();
+				}
+			}
+			function controllo(){
+				const myC0 = document.getElementsByTagName('button')[mano[0].indice];
+				const myC1 = document.getElementsByTagName('button')[mano[1].indice];
+				console.log(mano[0].car.colore);
+				console.log(mano[1].car.colore);
+				if(mano[0].car.colore!= mano[1].car.colore){
+					//disattiva
+					console.log(11);
+					setTimeout(function(){
+						myC0.textContent = 'X';
+						myC1.textContent = 'X';
+					},2000);
+				}else{
+					myC1.className = 'disattiva';
+					myC0.className = 'disattiva';
+				}
+				mano=[];
+			}
+		
+			start();
+		</script>
+	</body>
+</html>

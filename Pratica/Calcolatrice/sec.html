@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name='viewport' content='width=device-width,initial-scale=1'>
+		<title>calcolatrice</title>
+		<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing: border-box;
+		}
+		body{
+			display: flex;
+			justify-content: center;
+		}
+		
+		
+		main{
+			height: 50vh;
+			width: 50%;
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 5fr;
+			background-color: grey;
+			padding: 1rem;
+			gap:1rem;
+		}
+		label{
+			height: 100%;
+			width: 100%;
+			background-color: white;
+			justify-content: right;
+			display: flex;
+			align-items: center;
+			padding: 1rem;
+		}
+		button{
+			height: 100%;
+			width: 100%;
+			background-color: white;	
+		}
+		section{
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr;
+			grid-template-rows: 1fr 1fr 1fr 1fr;	
+		}
+		
+		</style>
+	<head>
+	<body>
+	
+		<main>
+			<label id='output'></label>
+			<section>
+			<button onClick='numero(0)' style='grid-area=b0'>0</button>
+			<button onClick="calcolo('/')" style='grid-area=bdiv'>/</button>
+			<button onClick="calcolo('*')" style='grid-area=bPer'>*</button>
+			<button onClick="calcolo('-')" style='grid-area=bMeno'>-</button>
+			
+			<button onClick='numero(7)' style='grid-area=b7'>7</button>
+			<button onClick='numero(8)' style='grid-area=b8'>8</button>
+			<button onClick='numero(9)' style='grid-area=b9'>9</button>
+			<button onClick="calcolo('+')"style='grid-area=bPlus'>+</button>
+			
+			<button onClick='numero(4)' style='grid-area=b4'>4</button>
+			<button onClick='numero(5)' style='grid-area=b5'>5</button>
+			<button onClick='numero(6)' style='grid-area=b6'>6</button>
+			<button onClick='invio()' style='grid-area=bInv'>Invio</button>
+			
+			<button onClick='numero(1)' style='grid-area=b1'>1</button>
+			<button onClick='numero(2)' style='grid-area=b2'>2</button>
+			<button onClick='numero(3)' style='grid-area=b3'>3</button>
+			<button onClick='cancel()'style='grid-area=bdot'>Cancel</button>
+			
+			</section>
+		
+		</main>
+	
+	
+	<script>
+		let numeri = ['',''];
+		let ordine = [true,true];
+		let myCalc = '';
+		let ultimo;
+		
+		function cancel(){
+			const myP = document.getElementById('output');
+			
+			if (myP.textContent == ''){
+				myP.textContent = 0;	
+			}
+			
+			
+			numeri[ultimo] = numeri[ultimo].slice(0,-1);
+			console.log(numeri[ultimo]);
+			
+			myP.textContent=numeri[ultimo];
+		}
+		
+		function numero(num){
+			if(ordine[1]&&myCalc==''){
+				ordine[0]=true;
+			}
+			
+			
+			if(ordine[0]){
+				numeri[0] = numeri[0]+num; 
+				const myP = document.getElementById('output');
+				myP.textContent=numeri[0];
+				ultimo=0;
+				
+			}else{
+				numeri[1] = numeri[1]+num; 
+				const myP = document.getElementById('output');
+				myP.textContent=numeri[1];
+				ultimo=1;
+			}
+			
+		}
+		
+		function calcolo(calc){
+			
+			myCalc = calc;
+			ordine[0] = false;
+			ordine[1] = false;
+			
+		}
+		
+		function invio(){
+			let ris = 0;
+			let n0 = parseInt(numeri[0]);
+			let n1 = parseInt(numeri[1]);
+			if(myCalc=='+'){
+				ris = n0+n1;	
+			}else if(myCalc == '-'){
+				ris = n0-n1;
+			}else if(myCalc == '*'){
+				ris = n0*n1;	
+			}else if(myCalc == '/'){
+				ris = n0/n1;	
+			}else{
+				alert('inserire operazione');	
+			}
+			
+			console.log(ris);
+			numeri[1]='';
+			numeri[0]=`${ris}`;
+			ordine[0]=true;
+			
+			const myP = document.getElementById('output');
+			myP.textContent=ris;
+		}
+		
+	
+	
+	</script>
+	<body>
+</html>

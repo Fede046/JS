@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio individuale - Pagina con gatto</title>
+        <style>
+        * {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh; /* L'altezza del body occupa almeno l'intera altezza della viewport -> 
+    Serve a evitare che il body risulti più basso della finestra se il contenuto è poco (ad esmepio, in una pagina con poco testo). */
+    width: 100vw;
+    font-family: Arial, sans-serif;
+    line-height: 1.6; /* Spaziatura tra le linee del testo per una migliore leggibilità */
+    display: flex;
+    flex-direction: column; /* Disposizione degli elementi interni in colonna */
+    background-color: #f5f7fa;
+}
+main{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
+	gap: 1rem;
+	padding: 1rem;
+}
+        </style>
+        
+    </head>
+    <body>
+    	<main>
+    		
+    	</main>
+        
+    	
+    <script> 
+    	let mano = []; 
+    	let myA = ['A','B','C','D','E','F','G','H'];
+    	let myAlfa = [...myA,...myA];
+    	let myCards = [];
+    	for(let i=0;i<myAlfa.length;i++){
+    		myCards.push({lettera: myAlfa[i],scoperta: false});
+    	}
+    	myCards.sort( function (a,b){
+    		return	a.lettera.localeCompare(b.lettera);
+    	});
+    	myCards.sort(() => Math.random() - 0.5);
+    	
+    	
+    	function start(){
+    		const myM = document.getElementsByTagName('main')[0];	
+    		
+    		for(let i in myCards){
+    			const myH = document.createElement('h1');
+    			myH.textContent = 'X';
+    			myH.addEventListener('click',function(){scopri(i)});
+    			myM.appendChild(myH);
+    		}
+    		
+    		
+    	}
+    	
+    	function scopri(index){
+    		
+    		if(myCards[index].scoperta == false){
+    			let myH1 = document.getElementsByTagName('h1')[index];
+    			mano.push({carta: myCards[index],index: index});
+    			myH1.textContent = myCards[index].lettera;
+    			myCards[index].scoperta = true;
+    			
+    			if(mano.length == 2){
+    				controllo();
+    			
+    				mano = [];
+    			}
+    		}
+    	}
+    	
+    	function controllo(){
+    		let myH1 = document.getElementsByTagName('h1')[mano[1].index];
+    		let myH0 = document.getElementsByTagName('h1')[mano[0].index];
+    		if(mano[1].carta.lettera != mano[0].carta.lettera){	
+    	
+    			myCards[mano[1].index].scoperta = false;
+    			myCards[mano[0].index].scoperta = false;
+    			setTimeout(function(){
+    					myH0.textContent = 'X';
+    					myH1.textContent = 'X';    					
+    			},1000);
+    		}
+    		if(vittoria()){
+    			alert('win');	
+    		}
+    	}
+    	function vittoria(){
+    		for(let e of myCards){
+    			if(e.scoperta == false){
+    				return false;	
+    			}
+    		}
+    		return true;
+    	}
+    
+    	start();
+    </script>
+    </body>
+</html>

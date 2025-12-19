@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio</title>
+        <style>
+        * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	gap: 1rem;
+}
+button{
+	width: 20%;	
+}
+
+        </style>
+    </head>
+    <body>
+    	<h1>Calcolare: la moltiplicazione e la divisione di due numeri</h1>
+    	<h2>Basta inserire due numeri e premere il pulsante!</h2>
+    	<p>1 numero<input type='number'></input></p>
+    	<p>2 numero<input type='number'></input></p>
+    	<button onClick="invia('mol')">Moltiplica</button>
+    	<button onClick="invia('div')">Dividere</button>
+    	<p>Il risultato è:</p>
+    	<p></p>
+    	
+    	<p>Numeri magici del giorno</p>
+    	<ul id='contMag'>
+    		
+    		
+		</ul>
+		<p>Numeri magici<span style="font-weight: bold;">trovati</span></p>
+    	<ul id='contTrov'>
+    		
+    		
+		</ul>
+		<p>Elenco delle miltiplicazioni e divisioni</p>
+    	<ul id='contCalc'>
+    		
+    		
+		</ul>
+		
+		<script>
+			let numMagici = [];
+			let calcoli = [];
+			let trovati = [];
+			
+			function start(){
+				
+				for(let i=0;i<7;i++){
+					numMagici.push(Math.floor(Math.random()*200));
+					
+				}
+				fillUlbyArray(numMagici,'contMag');
+			}
+			function fillUlbyArray(array,idUl){
+				
+				const myUl = document.getElementById(idUl);
+				myUl.innerHTML = '';
+				for(let i in array){
+					
+					const myLi = document.createElement('li');
+					myLi.textContent = array[i];
+					myUl.appendChild(myLi);
+				}
+			}
+			
+			
+			function invia(tipo){
+				const myIn0 = document.getElementsByTagName('input')[0];
+				const myIn1 = document.getElementsByTagName('input')[1];
+				
+				let ris = 0;
+				let calcolo = '';
+				
+				if(tipo == 'mol'){
+					 ris = parseInt(myIn0.value) * parseInt(myIn1.value);
+					 calcolo = `${myIn0.value} * ${myIn1.value}= ${ris}`;
+
+				}else{
+					 ris = parseInt(myIn0.value) / parseInt(myIn1.value);
+					 calcolo = `${myIn0.value} / ${myIn1.value}= ${ris}`;
+					
+				}
+				calcoli.push(calcolo);
+				fillUlbyArray(calcoli,'contCalc');
+				if(controllo(ris)){
+					trovati.push(ris);	
+					fillUlbyArray(trovati,'contTrov');
+				}
+			}
+			
+			function controllo(num){
+				let temp = true;
+				for(let e of numMagici){
+					if(e == num){
+						for(let f of trovati){
+							if(f == num){
+								temp =  false;
+							}
+						}
+						if(temp){
+							return true;
+						}
+					}
+				}
+				return false;
+				
+			}
+			
+			
+			start();
+		</script>
+		
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+
+<body>
+	<label>Enter your number:</label>
+	<input type='num' id='num'  required>
+	<br>
+    <label>Enter your email:</label>
+    <input type="email" id="email" required>
+    <button onClick='send()'>Send</button>
+    <p id='es'></p>
+
+    <script>
+    
+   		  function send(){
+   		  	  const mN = document.getElementById('num');
+   		  	  const mE = document.getElementById('email');
+   		  	  const mP = document.getElementById('es');
+   		  	  
+   		  	  if(mE.checkValidity() && mN.checkValidity()){
+   		  	  	  mP.textContent = mE.value +' '+mN.value;
+   		  	  }else{
+   		  	  	alert('errore')  
+   		  	  }
+   		  }
+
+    </script>
+</body>
+
+</html>

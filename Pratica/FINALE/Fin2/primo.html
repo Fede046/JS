@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio individuale - Pagina con gatto</title>
+        <style>
+        /* General Styles */
+* {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh; /* L'altezza del body occupa almeno l'intera altezza della viewport -> 
+    Serve a evitare che il body risulti più basso della finestra se il contenuto è poco (ad esmepio, in una pagina con poco testo). */
+    width: 100vw;
+    font-family: Arial, sans-serif;
+    line-height: 1.6; /* Spaziatura tra le linee del testo per una migliore leggibilità */
+    display: flex;
+    flex-direction: column; /* Disposizione degli elementi interni in colonna */
+    background-color: black;
+    color: white;
+    padding-left:5%;
+	padding-right:5%;
+}
+
+/* Header Styles */
+header {
+	width:80%;
+	height:10vh;
+    display: flex; /* Layout flex per posizionare logo e menu in una riga */
+    align-items: center; /* Allinea verticalmente al centro */
+    background-color: black;
+    padding: 1rem;  
+    flex-shrink: 0; 
+    gap: 10%;
+
+}
+header img{
+	height: 100%;
+	width:auto;
+}
+header input{
+	padding: 0.5rem;	
+	width:100%;
+}
+section{
+	display: grid;
+	grid-template-columns: 80% 20%;
+	
+	width:100%;
+	height:80vh;
+	padding: 1rem;
+	
+}
+a{
+	text-decoration: none;	
+}
+img{
+	background-color: red;	
+}
+
+main{
+	width:100%;
+	height:100%;
+	display: flex;
+	position: relative;
+	align-items: end;
+	justify-content: left;
+}
+
+
+main img:nth-child(1){
+	position: absolute;
+	width:100%;
+	height:100%;
+	z-index: -1;
+}
+main img:nth-child(2){
+	height:40%;
+	width: auto;
+	margin: 1rem;
+}
+main a{
+	color: white;
+}
+main span{
+	font-weight:100;
+	font-size: 1rem;
+}
+footer{
+	height:100%;
+	width:100%;
+	padding: 1rem;
+}
+footer ul{
+	list-style: none;
+	height:100%;
+	width:100%;
+	padding: 1rem;
+	gap: 1rem;
+}
+footer ul li{
+	
+}
+footer ul li a{
+	height:100%;
+	width:100%;
+	padding:1rem;
+	display: flex;
+	background-color: gray;
+}
+footer img{
+	height:100%;
+	width:auto;
+	border:2px solid transparent;
+}
+footer img:hover{
+	border:2px solid white;		
+}
+footer div p:hover, foooter div span:hover{
+	color:yellow;	
+}
+@media(max-width:768px){
+	header{
+		display:none;	
+	}
+	section{
+		display: flex;
+		flex-direction: column;
+	}
+}
+        </style>
+    </head>
+    <body>
+        <!-- Sezione Header -->
+        <header>
+            <img src='mist.png'>
+            <input type='text'>
+        </header>
+        
+        <section>
+        	<main>
+        		<img src='mist.png'>
+        		<img src='mist.png'>
+        		<a href=''>
+        			
+        			<h1>The Perfect Couple <span>1:58</span></h1>
+        			<p>Watch the trailer</p>
+        			<p>4/5</p>
+        		</a>
+        	
+        	</main>
+        	
+        	
+        	<footer>
+        	<p style='color: orange;'>Successivo</p>
+        		<ul>
+        		<li>
+        			<a href=''>
+        				<img src='mist.png'>
+        				<div>
+        					<p>The Perfect Couple <span>1:58</span></p>
+        					<p>Watch the trailer</p>
+        					<p>4/5</p>
+        				</div>
+        			</a>
+        		</li>
+        		<li>
+        			<a href=''>
+        				<img src='mist.png'>
+        				<div>
+        					<p>The Perfect Couple <span>1:58</span></p>
+        					<p>Watch the trailer</p>
+        					<p>4/5</p>
+        				</div>
+        			</a>
+        		</li>
+        		<li>
+        			<a href=''>
+        				<img src='mist.png'>
+        				<div>
+        					<p>The Perfect Couple <span>1:58</span></p>
+        					<p>Watch the trailer</p>
+        					<p>4/5</p>
+        				</div>
+        			</a>
+        		</li>
+        		</ul>
+        		<p>Esplora Trainer</p>
+        	</footer>
+        
+        </section>
+        
+    </body>
+</html>

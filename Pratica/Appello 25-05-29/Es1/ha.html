@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='vireport' content='width=device-width,initial-scale=1'>
+		<title>das</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body{
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				
+			}
+			button:hover{
+				background-color: red;	
+			}
+			a{
+				text-decoration: none;	
+			}
+			
+			nav{
+				width: 100%;
+				height: 10vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 1rem;
+				
+			}
+			nav div{
+				position: relative;
+				width: 10%;
+				height: 100%;
+			}
+			nav img{
+				position: absolute;
+				height: 100%;
+				width: 100%;
+			}
+			nav ul{
+				display: flex;
+				gap: 1rem;
+				list-style: none;
+				
+			}
+			nav a{
+				color: black;	
+			}
+			nav a:hover{
+				color: orange;	
+			}
+			body > h1{
+				width: 100%;
+				border-bottom: 2px solid black;
+				text-align: center;
+			}
+			main{
+				width: 60%;
+				height: 60vh;
+				border-radius: 20px;
+				margin-bottom: 13rem;
+			}
+			main section{
+				border:2px solid transparent;
+				height: 100%;
+				background-color: orange;
+				display: grid;
+				grid-template-rows: 1fr 1fr 8fr;
+				padding: 1rem 1rem 0rem 1rem;
+			}
+			main section:hover{
+				border-color: red;	
+			}
+			main
+			main section div{
+				display: flex;
+				height: 100%;
+				width:100%;
+				align-items: end;
+				justify-content: left;
+			}
+			main section button{
+				height: 20%;
+				
+			}
+			main section div div{
+				position: relative;
+				
+				height: 100%;
+				width: 60%;
+				overflow: hidden;
+			}
+			main section div div img{
+				bottom: -200px;
+				height: 150%;
+				width:100%;
+				position: absolute;
+			}
+			main > div{
+				width: 100%;
+				height: 10vh;
+				display: flex;
+				justify-content: right;
+				align-items: center;
+				gap: 1rem;
+				padding: 1rem;
+				
+				
+			}
+			main > div button{
+				padding: 1rem;	
+			}
+			/*----------------*/
+			footer{
+				display: grid;
+				grid-template-rows: 1fr 5fr;
+				width: 60%;
+				height: 30vh;
+			}
+			footer > div{
+				
+				width: 100%;
+				display: flex;
+				justify-content: space-between; 
+			}
+			footer > div p:hover,footer > div h1:hover{
+				color: red;	
+			}
+			footer section{
+				display: flex;
+				padding: 1rem;
+				gap: 1rem;
+				height: 100%;
+				width: 100%;
+				background-color: grey;
+				align-items: center;
+				justify-content: left;
+				
+			}
+			footer section > div{
+				border:2px solid transparent;
+				border
+				height: 100%;
+				width: 20%;
+				padding: 1rem;
+				display: grid;
+				grid-template-rows: 1fr 1fr;
+			}
+			footer section > div:hover{
+				border-color: red;	
+			}
+			footer section div div{
+				position: relative;
+				height: 100%;
+				width: 100%;
+				
+			}
+			footer img{
+				
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				border-radius:50px;
+			}
+				
+		</style>
+	</head>
+	
+	<body>
+		<nav>
+			<div>
+				<img src='img/Babbel_Logo.jpg'>
+			</div>
+			<ul>
+				<li><a href=''>Home</a></li>
+				<li><a href=''>Ripasso</a></li>
+				<li><a href=''>Live</a></li>
+				<li><a href=''>Esplora</a></li>
+			</ul>
+		</nav>
+		
+		<h1> Si comincia utente </h1>
+		
+		<main>
+			<p> Primi passi</p>
+			<h1>Descrivere la tua città e dire perchè ti piace</h1>
+			
+			<section>
+				<p>Esercizi con vocaboli</p>
+				<h1>È il momento di ripassare</h1>
+				<div>
+					<div>
+						<img src='img/icons8-sveglia-48.png'>
+					</div>
+					<button>Ripassa ora</button>
+				</div>
+				
+			</section>
+			
+			<div>
+				<button><</button>
+				<button>></button>
+			</div>
+			
+		</main>
+		
+		<footer>
+			<div>
+				<h1>Corsi</h1>
+				<p>Vedi tutto</p>
+			</div>
+			
+			<section>
+				<div>
+					<div>
+						<img src='img/uomo.png'>
+					</div>
+					<p>Grammatica il futuro</p>
+				</div>
+				<div>
+					<div>
+						<img src='img/uomo.png'>
+					</div>
+					<p>Grammatica il passivo</p>
+				</div>
+				<div>
+					<div>
+						<img src='img/uomo.png'>
+					</div>
+					<p>Grammatica il passato</p>
+				</div>
+			</section>
+		</footer>
+	
+	<body>
+
+</html>

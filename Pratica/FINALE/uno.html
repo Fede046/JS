@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio individuale - Pagina con gatto</title>
+        <style>
+        * {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100vh; /* L'altezza del body occupa almeno l'intera altezza della viewport -> 
+    Serve a evitare che il body risulti più basso della finestra se il contenuto è poco (ad esmepio, in una pagina con poco testo). */
+    font-family: Arial, sans-serif;
+    line-height: 1.6; /* Spaziatura tra le linee del testo per una migliore leggibilità */
+    display: flex;
+    flex-direction: column; /* Disposizione degli elementi interni in colonna */
+    background-color: #f5f7fa;
+
+}
+header{
+	padding: 1rem;
+	width:100%;
+	height:50%;
+	display: flex;
+	justify-content: space-between;
+	background-color: brown;
+}
+footer{
+	background-color: gray;
+	width:100%;
+	height:50%;
+	display: flex;
+	padding: 1rem;
+	gap: 1rem;
+	overflow: auto;
+	flex-shrink: 0;
+}
+button,.carta,section{
+	width: 20%;
+	height: 80%;
+}
+.carta{
+	border: 2px solid transparent;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+footer .carta:hover{
+	border: 2px solid black;
+}
+.disable{
+	pointer-Events: none;	
+}
+        </style>
+    </head>
+    <body>
+        <header>
+        	<section class='carta' id='scarto'>
+        		
+        		
+        	</section>
+        	<button onClick='pesca()'>Pesca</button>
+        </header>
+        <footer>
+        	
+        </footer>
+        
+        <script>
+        	let mano = [];
+        	const colors = ['red','yellow','green','blue'];
+        	let scarto = {num:Math.floor(Math.random()*10),color:colors[Math.floor(Math.random()*colors.length)]};
+        	
+        
+        
+        	function pesca(){
+        		let num = Math.floor(Math.random()*10);
+        		let color = colors[Math.floor(Math.random()*colors.length)]
+        		
+        		mano.push({num:num,color:color});
+
+        		
+        		aggiornaMano();
+        	}
+        	function aggiornaMano(){
+        		const myCont = document.getElementsByTagName('footer')[0];
+        		myCont.innerHTML = '';
+        		
+        		
+        		for(let i in mano){
+        			const myDiv = document.createElement('div');
+        			myDiv.className = 'carta';
+        			myDiv.textContent= mano[i].num;
+        			myDiv.style.backgroundColor = mano[i].color;
+        			myDiv.addEventListener('click',function(){gioca(i)});
+        			myCont.appendChild(myDiv);
+
+        		}
+        	}
+        	function aggiornaScarto(){
+        		const myCont = document.getElementsByTagName('section')[0];	
+        		myCont.textContent= scarto.num;
+        		myCont.style.backgroundColor = scarto.color;
+        	}
+        	
+        	
+        	function gioca(index){
+        		if(scarto.color == mano[index].color || scarto.num == mano[index].num){
+        			console.log(22);
+        			scarto=mano[index];
+        			mano.splice(index,1);
+        			
+        			aggiornaScarto();
+        			aggiornaMano();
+        			if(mano.length == 0){
+        				alert('win');
+        				const myBtn = document.getElementsByTagName('button')[0];
+        				myBtn.className = 'disable';
+        			}
+        		}
+
+        	}
+        	aggiornaScarto();
+        	pesca();
+        	pesca();
+        	pesca();
+        </script>
+    </body>
+</html>

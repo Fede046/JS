@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio individuale - Pagina con gatto</title>
+        
+        <style>
+        	/* General Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh; /* L'altezza del body occupa almeno l'intera altezza della viewport -> 
+    Serve a evitare che il body risulti più basso della finestra se il contenuto è poco (ad esmepio, in una pagina con poco testo). */
+    width: 100vw;
+    font-family: Arial, sans-serif;
+    line-height: 1.6; /* Spaziatura tra le linee del testo per una migliore leggibilità */
+    display: flex;
+    flex-direction: column; /* Disposizione degli elementi interni in colonna */
+    background-color: #f5f7fa;
+    align-items: center;
+}
+main{
+	background-color: red;
+	padding: 1rem;
+	height:100vh;
+	width:80%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap:1rem;
+}
+
+
+header,footer{
+	padding: 1rem;
+	height:100%;
+	width:100%;
+	background-color: orange;
+}
+header{
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+ul{
+	list-style: none;	
+}
+footer ul{
+	overflow: auto;
+	border: 2px solid black;
+	padding: 1rem;
+	
+}
+footer ul li{
+	border: 1px solid black;
+	background-color: gray;
+	margin-bottom: 1rem;
+	padding:1rem;
+}
+
+        
+        </style>
+    </head>
+    <body>
+    
+    	<main>
+    	<header>
+    			<h1>Crea Contatto</h1>
+                <ul>
+                    <li>
+                    	<p>Nome:</p>
+                    	<input id='nome' type='text' required>
+                    </li>
+                    
+                    <li>
+                    	<p>Numero Telefono: (10num)</p>
+                    	<input id='tel' type='number' required>
+                    </li>
+                    
+                    <li>
+                    	<p>Email:</p>
+                    	<input id='mail' type='email' required>
+                    </li>
+                    
+                </ul>
+                <button onClick='addCont()'>Add Contact</button>
+        </header>
+    	
+        <footer>
+        	<h1>Rubrica</h1>
+        	<ul id='myCont'>
+        		
+        	</ul>
+        </footer>
+        
+    	</main>
+       
+        
+    	<script>
+    		let myRubrica = [];
+    		
+    		function addCont(){
+    			const myN = document.getElementById('nome');	
+    			const myT = document.getElementById('tel');
+    			const myE = document.getElementById('mail');
+    			
+    			if(myN.checkValidity() && myT.checkValidity() && myE.checkValidity() && myT.value.length==10){
+    				if(controllo(myN.value)){
+    					aggiungi(myN.value,myT.value,myE.value);
+    				}else{
+    					alert('nome già usato');	
+    				}
+    				
+    			}else{
+    				alert('Campi nulli o errati');	
+    			}
+    		}
+    		
+    		function start(){
+    			aggiungi('Vittorio','1231231234','Vittorio@gmail.com');
+    			aggiungi('Errico','1231231234','Errico@gmail.com');
+    			aggiungi('Matteo','1231231234','Matteo@gmail.com');
+    		}
+    		
+    		function aggiungi(nome,tel,mail){
+    			myRubrica.push({nome: nome,tel: tel,mail: mail});
+    			myRubrica.sort(function(a,b){
+    				return a.nome.localeCompare(b.nome);		
+    			});
+    			ricarica();
+    		}
+    		function ricarica(){
+    			const myCont = document.getElementById('myCont');
+    			myCont.innerHTML = '';
+    			
+    			
+    			for(let e of myRubrica){
+    				const myLi = document.createElement('li');
+    				const myP = document.createElement('p');
+    				const myBtn = document.createElement('button');
+    				myP.textContent = `${e.nome} ${e.tel} ${e.mail}`;
+    				myBtn.textContent = 'Rimuovi';
+    				myBtn.addEventListener('click',function(){rimuovi(e.nome)});
+    				myLi.appendChild(myP);
+    				myLi.appendChild(myBtn);
+    				myCont.appendChild(myLi);
+    			}
+    		}
+    		function rimuovi(nome){
+    			for(let i in myRubrica){
+    				if(myRubrica[i].nome == nome){
+    					myRubrica.splice(i,1);
+    				}
+    			}
+    			
+    		
+    			ricarica();
+    		}
+    		
+    		function controllo(nome){
+    			for(let i in myRubrica){
+    				if(myRubrica[i].nome == nome){
+    					return false;
+    				}
+    			}
+    			return true;
+    		}
+    		
+    		start();
+    	</script>
+        
+    </body>
+</html>

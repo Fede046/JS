@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio individuale - Pagina con gatto</title>
+        <style>
+        /* General Styles */
+* {
+    box-sizing: border-box; /* Considera anche padding e border nelle dimensioni di width ed height, 
+    rendendo il layout più prevedibile e i calcoli più semplici. Serve ad evitare la fuoriuscita 
+    degli elementi dal loro container quando si aggiungono bordi o margini interni. */
+    /* 
+    In pratica:
+        Potremmo definire ad esempio una [width di 200px], un [padding di 20px], e un [bordo di 5px] per un dato elemento. 
+        Le casistiche principali sono: 
+                
+            - box-sizing: content-box; (opzione di default se non si specifica altro): 
+                        DIMENSIONE TOTALE = contenuto [width] + [padding sinistro + padding destro] + [bordo sinistro + bordo destro]
+                            = 200 + 20 + 20 + 5 + 5
+                            = 250px totali
+
+            - box-sizing: border-box; : 
+                        DIMENSIONE TOTALE = 200px esatti (padding e bordo inclusi)
+
+        Chiaramente, lo stesso discorso vale nella definizione di height di un elemento.
+    */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh; /* L'altezza del body occupa almeno l'intera altezza della viewport -> 
+    Serve a evitare che il body risulti più basso della finestra se il contenuto è poco (ad esmepio, in una pagina con poco testo). */
+    width: 100vw;
+    font-family: Arial, sans-serif;
+    line-height: 1.6; /* Spaziatura tra le linee del testo per una migliore leggibilità */
+    display: flex;
+    flex-direction: column; /* Disposizione degli elementi interni in colonna */
+    background-color: #f5f7fa;
+}
+
+
+nav {
+    display: flex; /* Layout flex per posizionare logo e menu in una riga */
+    justify-content: space-between; /* Spaziatura tra logo e menu */
+    align-items: center; /* Allinea verticalmente al centro */
+    color: #ffffff;
+    flex-shrink: 0; 
+    width:80%;
+	margin-left: 10%;
+	margin-right: 10%;    
+}
+
+
+nav ul {
+		padding-left:5%;
+	padding-right:5%;
+	width:100%;
+    list-style: none; /* Rimuove i bullet points dalla lista */
+    display: flex; /* Disposizione dei link di navigazione in orizzontale -> flex-direction: row; [default per display: flex;] */
+    justify-content: space-between;
+}
+nav ul li{
+	height:100%;
+	padding: 1rem;
+	background-color: gray;	
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none; /* Rimuove la sottolineatura dai link */
+    font-weight: 500; /* spessore/grassetto */
+    transition: color 0.3s; /* Transizione morbida del colore in hover */
+}
+
+nav ul li a:hover {
+    color: #a0c4ff;
+}
+footer{
+	width: 100%;
+	text-align: center;
+	color: gray;
+}
+main a{
+	text-decoration: none;
+	color: black;
+}
+main{
+	width:80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	border: 1px solid black;
+	padding: 3rem;
+}
+
+main > div{
+	display: flex;
+	gap: 1rem;
+}
+main ul{
+	width:100%;
+	display: flex;
+	gap:5%;
+	list-style: none;
+	
+}
+main li{
+	width: 50%;	
+	padding: 1rem;
+	background-color: gray;
+}
+
+main img{
+	width: 100px;
+	height: 100px;
+	float:right;
+}
+
+        </style>
+    </head>
+    <body>
+        <!-- Sezione Header -->
+        
+            <nav>
+                <ul>
+                    <li><a href="index.html">Abruzzo</a></li>
+                    <li><a href="about.html">Basilicata</a></li>
+                    <li><a href="services.html">Calabria</a></li>
+                    <li><a href="contact.html">Campania</a></li>
+                </ul>
+            </nav>
+            <main>
+            	<h2>Confronta le Bandiere Blu in calabria</h2>
+            	<div>
+            		<input type='checkbox'><p>Trebisacce</p>
+            		<input type='checkbox'><p>Cirò Marina</p>
+            		<input type='checkbox'><p>Melissa</p>
+            		<input type='checkbox'><p>Roccella Jonica</p>
+            	</div>
+            	
+            	<ul>
+            		<li><a href=''>
+            			<h1>Trebisacce</h1>
+            			<img src='cloudy (1).png'>
+            			<p>test  askdjikldj a dkdkajdkas dk j ajdkasjd asdka dak jd  jaiksdjaklsjdakls as jd asdjas dasdkasjdak </p>
+            		</a></li>
+            		<li><a href=''>
+            			<h1>Roccella Jonica</h1>
+            			<img src='cloudy (1).png'>
+            			<p>test  askdjikldj a dkdkajdkas dk j ajdkasjd asdka dak j a dkdkajdkas dk j ajdka j a dkdkajdkas dk j ajdkasjd asdka dak sjd asdka dak jd  jaiksdjaklsjdakls as jd asdjas dasdkasjdak </p>
+            			
+            			</a></li>
+            	</ul>
+            	<footer>
+            		<p>dshjkadsjkads   ahjka hjk ads adhjksadhjks hjk adsads hjk ashjk ashjk</p>
+            		<p>per informazioni <span><a href=''>www.sti.it</a></span><p>
+            	</footer>
+            
+            </main>
+
+    </body>
+</html>

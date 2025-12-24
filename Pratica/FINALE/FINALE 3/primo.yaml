@@ -1,0 +1,139 @@
+swagger: '2.0'
+info:
+  description: 'API gestione messaggi'
+  title: 'Esercizio messaggi'
+  version: 1.0.0
+
+paths:
+  /sessioni/{sessioneId}/messaggi:
+    get:
+      summary: ' ottenere lelenco di tutti messaggi di una sessione con una dato score'
+      operationId: 'getMess'
+      parameters:
+      - name: 'sessioneId'
+        in: path
+        description: "ID della sessione"
+        required: true
+        type: integer
+      - name: datoScore
+        in: query
+        description: 'score dato'
+        required: true
+        type: integer
+        minimum: 1
+        maximum: 5
+      responses:
+        '200':
+          description: 'successo'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Messaggio'
+          examples:
+            application/json:
+              - id: 1
+                testo: "Messaggio di esempio"
+                score: 4 
+              - id: 2
+                testo: "Altro messaggio"
+                score: 4
+        '400':
+          description: 'errore'
+
+    post:
+      summary: ' aggiungere un nuovo messaggio ad una sessione'
+      operationId: 'aggiungiMess'
+      parameters:
+      - name: 'sessioneId'
+        in: path
+        description: "ID della sessione"
+        required: true
+        type: integer
+      - name: 'messaggio'
+        in: body
+        description: 'messaggio da aggiungere'
+        required: true
+        schema:
+            $ref: '#/definitions/Messaggio'
+      responses:
+        '200':
+          description: 'successo'
+          schema:
+            $ref: '#/definitions/Message'          
+          example:
+            application/json:
+              - id: 1
+                testo: "Messaggio"
+                score: 2            
+        '400':
+          description: 'errore'
+  /sessioni/{sessioneId}/messaggi/{messaggioId}:          
+    put:
+      summary: 'modificare lo score di un messaggio'
+      operationId: 'modMess'
+      parameters:
+      - name: 'sessioneId'
+        in: path
+        description: "ID della sessione"
+        required: true
+        type: integer
+      - name: 'messaggioId'
+        in: path
+        description: "ID del messaggio"
+        required: true
+        type: integer        
+      - name: 'messaggio'
+        in: body
+        description: 'messaggio da aggiungere'
+        required: true
+          schema:
+            type: object
+            properties:
+              score: # Questo è la proprietà reale da passare nel body!
+                type: integer
+                minimum: 1
+                maximum: 5
+      responses:
+        '200':
+          description: 'successo'
+          schema:
+            $ref: '#/definitions/Message'
+          examples:
+            application/json: 
+              id: 42
+              testo: "Testo"
+              score: 1          
+        '400':
+          description: 'errore'
+          
+definitions:
+  Sessione:
+    type: object
+    required:
+      - id
+      - data
+    properties:
+      id:
+        type: integer
+      data:
+        type: string
+        example: '12-12-2003'
+  
+  Messaggio:
+    type: object
+    required:
+      - id
+      - testo
+      - score
+    properties:
+      id:
+        type: integer
+        minimum: 0
+      testo:
+        type: string
+        example: 'oggi sono a scuola'
+      score:
+        type: integer
+        minimum: 1
+        maximum: 5
+      

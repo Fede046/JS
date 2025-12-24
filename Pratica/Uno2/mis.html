@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1'>
+		<title>Unos</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body{
+				display: flex;
+				align-items: enter;
+				justify-content: center;
+			}
+			
+			main{
+				height: 70vh;
+				width: 70%;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-template-rows: 1fr 1fr;
+				grid-template-areas: 
+				'b1 b2' 'b3 b3';
+				gap: 1rem;
+				padding: 1rem;
+				background-color: brown;
+			}
+		
+	
+			section:nth-child(3){
+				height: 100%;
+				width: 100%;
+				grid-area: b3;
+				background-color: gray;
+				overflow: auto;
+				padding: 1rem;
+				display: flex;
+				gap: 1rem;
+			}
+			section:nth-child(1){
+				height: 100%;
+				width: 100%;
+				grid-area: b1;
+				background-color: skyblue;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			section:nth-child(2){
+				height: 100%;
+				width: 100%;
+				grid-area: b2;
+				background-color: black;
+			}
+			button{
+				height: 100%;
+				width: 100%;	
+			}
+			
+			.carta{
+				height: 100%;
+				width: 60%;
+				max-width: 200px;
+				flex-shrink: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 3rem;
+			}
+			.disattiva{
+				pointer-events: none;	
+				
+			}
+			
+			
+		</style>
+		
+	</head>
+	
+	<body>	
+		
+		<main>
+			<section id='scarti' class='carta'>
+				
+			</section>
+			
+			<section id='mazzo'>
+				<button onClick='pesca()'>Pesca</button>
+			</section>
+			
+			<section id='container'>
+				
+			</section>
+		
+		</main>
+	
+	<script>
+		let colors=['red','blue','green','yellow'];
+		let maxNum = 9;
+		let mano = [];
+		let myScarto = {num: Math.floor(Math.random()*maxNum), col:colors[Math.floor(Math.random()*colors.length)]}
+		
+		function start(){
+			loadScarto();
+			pesca();
+			pesca();
+			pesca();
+			pesca();
+			pesca();
+		}
+		
+		function pesca(){
+			addMano();
+			loadMano();
+		}
+		function loadMano(){
+			const myCont = document.getElementById('container');
+			myCont.innerHTML = '';
+			for(let i in mano){
+				let myCarta = document.createElement('div');
+				myCarta.className = 'carta';
+				myCarta.style.backgroundColor = mano[i].col;
+				myCarta.addEventListener('click',function(){
+					gioca(i);
+				});
+				let myP = document.createElement('p');
+				myP.textContent = mano[i].num;
+				
+				
+				myCarta.appendChild(myP);
+				myCont.appendChild(myCarta);
+				
+			}
+		}
+		function loadScarto(){
+			const myCarta = document.getElementById('scarti');
+			myCarta.innerHTML = '';
+			myCarta.style.backgroundColor = myScarto.col;
+			let myP = document.createElement('p');
+			myP.textContent = myScarto.num;
+			myCarta.appendChild(myP);
+		}
+		
+		function addMano(){
+			myNum = Math.floor(Math.random()*maxNum);
+			myCol = colors[Math.floor(Math.random()*colors.length)];
+			mano.push({num: myNum, col:myCol});	
+		}
+		
+		function gioca(index){
+			
+			if(myScarto.col == mano[index].col || myScarto.num == mano[index].num){
+				myScarto = 	mano[index];
+				mano.splice(index,1);
+				loadScarto();
+				loadMano();
+			}
+			if(mano.length==0){
+				alert('win');
+				const myBtn = document.getElementsByTagName('button')[0];
+				myBtn.className = 'disattiva';
+			}
+		}
+		
+		
+		
+		
+	
+		start();
+	</script>
+	
+	</body>
+</html>

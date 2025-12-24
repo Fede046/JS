@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizios</title>
+        <style>
+        * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+	display: grid;
+	grid-template-columns: 1/3fr 1/6fr 1/6fr 1/3fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas:
+	'b0 b0 b0 b0'
+	'b1 b1 b2 b2' 
+	'b3 b4 b4 b5';
+
+	
+}
+a{
+	display: felx;
+	flex-direction: column;
+	grid-area: b0;
+	width:100%;
+	height: 100%;
+	border: 1px solid black;
+	align-items: center;
+	justify-content: left;
+	padding: 1rem;
+}
+section:nth-child(1){
+	margin-top: 1rem;
+	border-top: 3px solid orange;
+	text-align:center;	
+	display: flex;
+	
+	flex-direction: column;
+	justify-content: center;
+	color: gray;
+	grid-area: b0;
+	width:100%;
+	height: 100%;
+	
+}
+
+a:nth-child(2){
+	grid-area: b1;	
+}
+a:nth-child(3){
+	grid-area: b2;	
+}
+a:nth-child(4){
+	grid-area: b3;	
+}
+a:nth-child(5){
+	grid-area: b4;	
+	background-color: green;
+}
+a:nth-child(6){
+	grid-area: b5;	
+	background-color: red;
+}
+h2{
+	font-weight: bold;
+	color: orange;
+	
+}
+h3{
+	color: gray;
+	border-bottom: 1px solid gray;
+}
+h1{
+	font-weight: bold;	
+}
+h1:hover{
+	color: pink;
+}
+a{
+	text-decoration: none;
+	
+}
+        </style>
+    </head>
+    <body>
+    	<section>
+    		<h1>Ribriche</h1>
+    	</section>
+    	
+        <a href=''>
+        	<h3>L'America</h3>
+        	<h2>di Marco Rossi</h2>
+        	<h1>La guerra è bugiarda</h1>
+        </a>
+        <a href=''>
+        	<h3>L'America</h3>
+        	<h2>di Marco Rossi</h2>
+        	<h1>La guerra è bugiarda</h1>
+        </a>
+        <a href=''>
+        	<h3>L'America</h3>
+        	<h2>di Marco Rossi</h2>
+        	<h1>La guerra è bugiarda</h1>
+        </a>
+        <a href=''>
+        	<h3>L'America</h3>
+        	<h2>di Marco Rossi</h2>
+        	<h1>La guerra è bugiarda</h1>
+        </a>
+        <a href=''>
+        	<h3>L'America</h3>
+        	<h2>di Marco Rossi</h2>
+        	<h1>La guerra è bugiarda</h1>
+        </a>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio individuale - Pagina con gatto</title>
+        <style>
+        /* General Styles */
+* {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+body{
+	display: flex;
+	flex-direction: column;
+}
+
+body div > div{
+	background-color: green;
+	color: white;
+	width:100%;
+}
+nav{
+	padding: 1rem;	
+	width:100%;
+	display: flex;
+	justify-content: space-between;
+	gap: 3%;
+}
+nav div{
+	border-radius: 10px;
+	color: green;
+	border: 2px solid green;
+	width:33%;
+	text-align: center;
+	padding: 1rem 4rem 1rem 4rem;
+}
+
+nav div:nth-child(1){
+	order:1;
+	
+}
+
+nav div:nth-child(3){
+	order:-1;
+	
+}
+
+        </style>
+    </head>
+<body>
+<div>
+	<div>
+I ranking ATP sono le classifiche mondiali dei tennisti
+professionisti maschili in singolare e in doppio, stilate
+dall'Association of Tennis Professionals.
+	</div>
+		<nav>
+			<div>Alcaraz</div>
+			<div>Djoković</div>
+			<div>Sinner</div>
+		</nav>
+</div>
+</body>
+</html>

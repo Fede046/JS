@@ -1,0 +1,137 @@
+swagger: '2.0'
+info:
+  title: 'API serie TV'
+  version: '1.0.0'
+  description: ' API REST (parziale) per la gestione di una collezione di serie televisive.'
+  
+definitions:
+  SerieTV:
+    type: object
+    required:
+      - id
+      - titolo
+      - data
+      - genere
+    properties:
+      id:
+        type: integer
+      titolo:
+        type: string
+      data:
+        type: string
+      genere:
+        type: string
+        enum:
+          - Avventura
+          - Commedia
+          - Azione
+          - Documentario
+        
+  Episodo:
+    type: object
+    required:
+      - id
+      - titolo
+    properties:
+      id:
+        type: integer
+      titolo:
+        type: string
+paths:
+  /serieTV/:
+    get:
+      summary: "Elenco dei serie di dato genere e data"
+      operationId: "getSerie"
+      parameters:
+        - in: query
+          name: "genere"
+          description: "genere serie"
+          required: true
+          type: string
+          enum:
+            - Avventura
+            - Commedia
+            - Azione
+            - Documentario
+        - in: query
+          name: 'data'
+          description: 'data serie'
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "Successo"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SerieTV'
+          examples:
+            application/json:
+              - id: 1
+                title: 'Guerra'
+                data: '12-12-2003'
+                genere: 'Commedia' 
+              - id: 2
+                title: 'Ferrari'
+                data: '12-12-2002'
+                genere: 'Azione'               
+        '400':
+          description: 'errore'
+  /serieTV/{idSerie}/episodi:
+    post:
+      summary: "aggiungere episodio"
+      operationId: "addEp"
+      parameters:
+        - in: path
+          name: "idSerie"
+          description: "id serie"
+          required: true
+          type: integer
+        - in: body
+          name: 'episodio'
+          description: 'episodio da aggiungere'
+          required: true
+          schema:
+            $ref: '#/defintions/Episodo'
+      responses:
+        "200":
+          description: "Successo"              
+        '400':
+          description: 'errore'
+  /serieTV/{idSerie}/episodi/{idEpisodio}:
+    put:
+      summary: " modificare il titolo di uno specifico episodio di una serie TV"
+      operationId: "modEp"
+      parameters:
+        - in: path
+          name: "idSerie"
+          description: "id serie"
+          required: true
+          type: integer
+        - in: path
+          name: "idEpisodio"
+          description: "id episodio"
+          required: true
+        - in: body
+          name: 'newTit'
+          description: 'nuovo titolo'
+          required: true
+          schema:
+            type: object
+            properties:
+              titolo: # Questo è la proprietà reale da passare nel body!
+                type: string
+       
+      responses:
+        "200":
+          description: "Successo"
+          schema:
+            $ref: '#/definitions/Episodio'
+          examples:
+            application/json:
+              - id: 11
+                titolo: 'GuerraII'
+                data: '12-12-2003'
+                genere: 'Commedia'               
+        '400':
+          description: 'errore'

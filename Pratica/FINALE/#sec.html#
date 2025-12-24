@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio individuale - Pagina con gatto</title>
+        <style>
+        * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh; /* L'altezza del body occupa almeno l'intera altezza della viewport -> 
+    Serve a evitare che il body risulti più basso della finestra se il contenuto è poco (ad esmepio, in una pagina con poco testo). */
+    width: 100vw;
+    font-family: Arial, sans-serif;
+    line-height: 1.6; /* Spaziatura tra le linee del testo per una migliore leggibilità */
+    display: flex;
+    flex-direction: column; /* Disposizione degli elementi interni in colonna */
+    background-color: #f5f7fa;
+    
+}
+
+        
+        </style>
+    </head>
+    <body>
+        <p>Parti da:<input type='number' min='1' required></input> secondi</p>
+        <button onClick='avvia()'>Avvia</button> 
+        <h1>0</h1>
+    <script>
+    	let myInt = null;
+    	let inizio = 0;
+    	
+    	function avvia(){
+    		const myTime = document.getElementsByTagName('input')[0];
+    		if(myTime.checkValidity() && myTime.value>=0){
+    			
+    		
+    		
+    		inizio = 0;
+    		clearInterval(myInt);
+    			
+    		inizio = myTime.value;
+    		myInt = setInterval(conta,1000);
+    		const myH1 = document.getElementsByTagName('h1')[0];
+    		myH1.textContent = myTime.value;
+    		}else{
+    			alert('errore');	
+    		}
+    	}
+    	function conta(){
+    		
+    		if(controllo()){
+    			inizio--;
+    			const myH1 = document.getElementsByTagName('h1')[0];
+    			myH1.textContent = inizio;
+    		}
+    		
+    		
+    	}
+    	function controllo(){
+    		if(inizio==0){
+    			clearInterval(myInt);
+    			alert('Fatto!!');
+    			return false;	
+    		}else{
+    			return true;	
+    		}
+    		
+    	}
+    	
+    </script>
+    </body>
+</html>

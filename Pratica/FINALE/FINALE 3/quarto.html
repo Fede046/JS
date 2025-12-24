@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio individuale - Pagina con gatto</title>
+        <style>
+        /* General Styles */
+* {
+    box-sizing: border-box; /* Considera anche padding e border nelle dimensioni di width ed height, 
+    rendendo il layout più prevedibile e i calcoli più semplici. Serve ad evitare la fuoriuscita 
+    degli elementi dal loro container quando si aggiungono bordi o margini interni. */
+    /* 
+    In pratica:
+        Potremmo definire ad esempio una [width di 200px], un [padding di 20px], e un [bordo di 5px] per un dato elemento. 
+        Le casistiche principali sono: 
+                
+            - box-sizing: content-box; (opzione di default se non si specifica altro): 
+                        DIMENSIONE TOTALE = contenuto [width] + [padding sinistro + padding destro] + [bordo sinistro + bordo destro]
+                            = 200 + 20 + 20 + 5 + 5
+                            = 250px totali
+
+            - box-sizing: border-box; : 
+                        DIMENSIONE TOTALE = 200px esatti (padding e bordo inclusi)
+
+        Chiaramente, lo stesso discorso vale nella definizione di height di un elemento.
+    */
+    margin: 0;
+    padding: 0;
+}
+div{
+	width: 50%;
+	height: 50vh;
+
+	background-color: gray;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
+	grid-template-areas: 
+	'b1 b2 b3'
+	'b1 b4 b3'
+	'b5 b5 b3'
+	'b6 b6 b6';
+	gap: 1rem;
+	padding: 1rem;
+}
+
+span{
+	background-color: 	green;
+	border-radius: 20px;
+	text-align: center;
+	border: 2px solid black;
+
+}
+
+#s3{
+	grid-area: b1;
+}
+#s1{
+	grid-area: b2;
+}
+#s2{
+	grid-area: b3;
+}
+#s4{
+	grid-area: b4;
+}
+#s5{
+	grid-area: b5;
+}
+#s6{
+	grid-area: b6;
+}
+
+        </style>
+    </head>
+    <body>
+        <div>
+<span id="s1">a</span>
+<span id="s2">b</span>
+<span id="s3">c</span>
+<span id="s4">d</span>
+<span id="s5">e</span>
+<span id="s6">f</span>
+</div>
+
+    </body>
+</html>

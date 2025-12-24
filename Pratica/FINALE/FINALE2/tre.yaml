@@ -1,0 +1,122 @@
+swagger: '2.0'
+info:
+  description: 'API REST (parziale) per la gestione di un cinema multisala'
+  title: 'API cinema'
+  version: 1.0.0
+
+paths:
+  /zone/{nomeZona}/sale:
+    get:
+      summary: 'restituire tutte le sale di una zona X che hanno il bar interno'
+      operationId: 'getSale'
+      parameters:
+        - name: nomeZona
+          required: true
+          in: path
+          description: 'nome della zona'
+          type: string
+        - name: haveBar
+          in: query
+          description: 'la sala ha il bar'
+          required: true
+          type: boolean
+      responses:
+        '200':
+          description: 'successo'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Sala'
+          examples:
+            application/json:
+              - id: 1
+                capienza: 231
+                bar: true
+              - id: 2
+                capienza: 214
+                bar: true              
+        '400':
+          description: 'Errore richiesta'
+
+    delete:
+      summary: 'cancellare i dati di tutte le sale in una determinata zona'
+      operationId: 'delSale'
+      parameters:
+        - name: nomeZona
+          required: true
+          in: path
+          description: 'nome della zona'
+          type: string
+      responses:
+        '200':
+          description: 'successo'
+        '400':
+          description: 'errore'
+
+  /zone/{nomeZona}/sale/{idSala}:
+    put:
+      summary: ' aggiornare le informazioni di una sala, sia capienza che possibilità del bar interno'
+      operationId: 'modSala'
+      parameters:
+        - name: nomeZona
+          required: true
+          in: path
+          description: 'nome della zona'
+          type: string
+        - name: idSala
+          type: integr
+          in: path
+          description: 'id della sale'
+          required: true
+        - in: body
+          name: 'nuovaSala'
+          description: 'nuova sala'
+          required: true
+          schema:
+            type: object
+            properties:
+              capienza:
+                type: integer
+              bar:
+                type: boolean
+      responses:
+        '200':
+          description: 'successo'
+          schema:
+            $ref: '#/definitions/Sala'
+          examples:
+            application/json: # specifica il tipo di dato che viene ritornato (in questo caso json), e se si vogliono mettere esempi nelle richieste è necessario
+              id: 42
+              capienza: 213
+              bar: false
+        '400':
+          description: 'errore'
+
+definitions:
+  Zona:
+    type: object
+    required:
+      - genere
+    properties:
+      genere:
+        type: string
+        enum: 
+          - commedia
+          - azione
+          - animazione
+ 
+  Sala:
+    type: object
+    required:
+      - id
+      - capienza
+      - bar
+    properties:
+      id:
+        type: integer
+      capienza:
+        type: integer
+      bar:
+        type: boolean
+
+      

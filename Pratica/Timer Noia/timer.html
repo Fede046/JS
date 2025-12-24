@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1'>
+		<title>Cronometro</title>
+		<style>
+			*{
+				margin:0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			
+			body{
+				width: 100%;
+				height: 100vh;
+				justify-content: center;	
+				display: flex;
+				align-items: center;
+			}
+			
+			main{
+				display: grid;
+				background-color: gray;
+				width: 50%;
+				height: 50vh;
+				grid-template-rows: 1fr 1fr;
+				grid-template-columns: 1fr 1fr;
+				grid-template-areas:
+				'b1 b1'
+				'b2 b3';
+				gap: 1rem;
+				padding: 1rem;
+				
+			}
+			label{
+				align-items: center;
+				background-color: white;	
+				grid-area:b1;
+				font-size: 8rem;
+				justify-content: center;
+				display: flex;
+			}
+			button:nth-type-of(1){
+				grid-area: b2;
+			}
+			button:nth-type-of(2){
+				grid-area: b3;
+			}
+		
+		</style>
+	</head>
+	
+	<body>
+		
+	
+		<main>
+			<label>dasd</label>
+			<button onClick='restart()'>Restart</button>
+			<button id='btn' onClick='ordine()'>Start</button>
+		</main>
+	
+	<script>
+		let myInterval = null;
+		let countS = 0;
+		let countDs = 0;
+		let countM = 0;
+		let countDm = 0;
+		let cambio = true;
+	
+		function start(){
+			const myLabel = document.getElementsByTagName('label')[0];	
+			myLabel.textContent = '00:00';
+			
+			
+		}
+		
+		function restart(){
+			countS = 0;
+			countDs = 0;
+			countM = 0;
+			countDm = 0;
+			const myLabel = document.getElementsByTagName('label')[0];
+			myLabel.textContent = `${countDm}${countM}:${countDs}${countS}`;
+			ordine();
+			
+		}
+		
+		function avvia(){
+			const myLabel = document.getElementsByTagName('label')[0];	
+			countS++;
+			if(countS == 10){
+				countDs++;
+				countS = 0;
+				if(countDs == 6){
+					countM++;
+					countDs = 0;
+					if(countM == 10){
+						countDm++;
+						countM = 0;
+					}
+				}
+			}
+			myLabel.textContent = `${countDm}${countM}:${countDs}${countS}`;
+			
+		}
+		
+		
+		function ordine(){
+			const myBtn = document.getElementById('btn');
+			if(cambio){
+				myBtn.textContent = 'Pause';
+				myInterval = setInterval(avvia,100);
+				cambio = false;
+			}else{
+				myBtn.textContent = 'Start';
+				clearInterval(myInterval);
+				cambio = true;
+			}
+		}
+		
+	
+		start();
+	</script>
+		
+	</body>
+
+</html>

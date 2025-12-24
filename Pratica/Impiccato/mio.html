@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1'>
+		<title>Imp</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				box-sizing: border-box;
+			}
+			body{
+				height: 70vh;
+				width: 100%;
+				padding: 1rem;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-template-rows: 1fr 1fr;
+				grid-template-areas:
+				'b1 b1'                                  
+				'b2 b3';
+			}
+			ul{
+				height: auto;
+				width: 100%;
+				border: 1px solid black;
+				background-color: orange;
+				overflow: auto;
+				padding: 1rem;
+				list-style: number;
+			}
+			section{
+				height: 100%;
+				width: 100%;
+				border: 1px solid black;
+				background-color: gray;	
+			}
+			main{
+				height: 100%;
+				width: 100%;
+				border: 1px solid black;
+				background-color: pink;
+				display: flex;
+				gap: 1rem;
+				padding: 1rem;
+				align-items: center;
+				justify-content: center;
+			}
+			div{
+				height: 100%;
+				width: 0%;
+				background-color: green;	
+			}
+			label{
+				height: 50%;
+				width: 100%; 
+				background-color: white;
+				padding: 1rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			input, button{
+				height: 100px;
+				margin-top: 1rem;
+				font-size: 2rem;
+			}
+			
+		</style>
+	</head>
+	<body>
+	
+		<main style="grid-area: b1;">
+			
+		</main>
+		
+		<ul style="grid-area: b2;">
+			
+		</ul>
+		
+		<section style="grid-area: b3;">
+			<div>
+			</div>
+		</section>
+		
+		<select>
+		</select>
+		<button onClick='invia()'>Invia</button>
+		
+	
+		<script>
+			let alfa = 'abcdefghijklmnopqrstuvxyz';
+			const parole = ['faggio','abete','albero','odissea'];
+			let myParola = parole[Math.floor(Math.random()*parole.length)];
+			let myStringa = '';
+			let myDette = [];
+			let myTrovate = [];
+			let punteggio = 0;
+			
+			function invia(){	
+				const myLetter = document.getElementsByTagName('select')[0].value;
+				controllo(myLetter);
+				caricaRebus();
+				togliLettera(myLetter);
+				caricaSelect();
+				
+				caricaUl();
+				ricalcoloPunteggio();
+				
+				controlloVittoria();
+			}
+			
+			function controlloVittoria(){
+				if(myStringa == myParola){
+					alert('win')	
+				}
+			}
+			
+			
+			function togliLettera(myLetter){
+				let myList = alfa.split('');
+				for(i in myList){
+					if(myLetter == myList[i]){
+						myList.splice(i,1);
+						myDette.push(myLetter);
+					}
+				}
+				alfa = myList.join('');
+				
+			}
+			
+			function ricalcoloPunteggio(){
+				const myDiv = document.getElementsByTagName('div')[0];
+				if(punteggio<100){
+					myDiv.style.width=`${punteggio}%`;	
+				}else{
+					alert('Hai perso');	
+					myDiv.style.width=`${100}%`;
+				}
+				
+				
+			}
+			
+			function controllo(myLetter){
+				let temp2 = true;
+				for(e of myParola){
+					if(e == myLetter){
+						let temp = true;
+						for(det of myDette){
+							if(det == myLetter){
+								temp = false;	
+							}
+						}
+						if(temp){
+							myTrovate.push(myLetter);
+							temp2 = false;
+						}
+						
+					}
+				}
+				
+				if(temp2){
+					punteggio +=10;	
+				}
+				
+			}
+			
+			
+			function start(){
+				caricaRebus();
+				console.log(myParola);
+				caricaSelect();
+			}
+			
+			function caricaSelect(){
+				const mySel = document.getElementsByTagName('select')[0];
+				mySel.innerHTML = '';
+				for(e of alfa){
+					let myOpt = document.createElement('option');
+					myOpt.textContent = e;
+					mySel.appendChild(myOpt);
+				}
+			}
+			function caricaRebus(){
+				myStringa = '';
+				
+				for(lettera of myParola){
+					if(!myTrovate.includes(lettera)){
+					if(lettera == 'a' || lettera == 'e'|| lettera == 'i' || lettera == 'o'||lettera == 'u' || lettera == 'y'){	
+						myStringa+='+';
+					}else{
+						myStringa+= '-';	
+					}
+					}else{
+						myStringa+= lettera;
+					}
+					
+					
+				}
+				console.log(myStringa);
+				caricaStringa();
+			}
+			
+			function caricaStringa(){
+				const myMain = document.getElementsByTagName('main')[0];
+				myMain.innerHTML = '';
+				for(lettera of myStringa){
+					let myLabel = document.createElement('label');
+					myLabel.textContent = lettera;
+					myMain.appendChild(myLabel);
+				}
+				
+			}
+			
+			
+			/*-------------------*/
+			function caricaUl(){
+				const myUl = document.getElementsByTagName('ul')[0];
+				myUl.innerHTML = '';
+				for(e of myDette){
+					const myLi = document.createElement('li');
+					myLi.textContent = e;
+					myUl.appendChild(myLi);
+				}
+				
+			}
+			
+			
+			start();
+		</script>
+	</body>
+</html>

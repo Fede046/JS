@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Memory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        section{
+        	height: 50vh;
+        	width: 100%;
+        	display: flex;
+        	background-color: gray;
+        }
+        div:nth-child(1){
+        	background-color: green;
+        	width: 60%; 
+        	position: relative;
+        	overflow: hidden;
+        }
+        img{
+        	position: absolute;
+        	height: 100%;
+        	width: 100%;
+        	bottom: -100px;
+        }
+        div:nth-child(2){
+        	background-color: red;
+        	width: 40%;
+        	justify-content: left;
+        	display: flex;
+        	align-items: end;
+        }
+        button{
+        	width: 200px;
+        	height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+	<section>
+		<div>
+			<img src='img/uomo.png'>
+		</div>
+		<div>
+			<button>Premi</button>
+		</div>
+	</section>
+    
+</body>
+
+</html>

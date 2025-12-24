@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Site Base</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        nav {
+            height: 5rem;
+            width: 100%;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 1fr 5fr;
+            grid-template-rows: 1fr;
+            background-color: black;
+            gap: 1rem;
+        }
+
+        nav div {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            background-color: green;
+        }
+
+        nav img {
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: orange;
+        }
+
+        /*---------------------*/
+        main {
+            height: 70vh;
+            width: 100%;
+            display: grid;
+            padding: 1rem;
+            grid-template-rows: 5fr 1fr;
+            background-color: gray;
+            gap: 1rem;
+        }
+
+        section {
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            display: grid;
+            padding: 1rem;
+            grid-template-rows: 3fr 2fr;
+            align-items: center;
+        }
+
+        section div:nth-of-type(1) {
+            height: 100%;
+            position: relative;
+            width: 100%;
+        }
+
+        /*-- si potrebbe anche usare nth-of-type(1) -> include solo i tipi div non conta al tri figli*/
+        section div:nth-child(2) {
+            height: 100%;
+            width: 100%;
+            background-color: green;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        section img {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background-color: orange;
+
+        }
+
+        footer {
+            height: 100%;
+            width: 100%;
+            background-color: yellow;
+            display: flex;
+            overflow: auto;
+            gap: 1rem;
+            padding: 0.5rem;
+        }
+
+        footer div {
+            position: relative;
+            height: 100%;
+            width: 30%;
+            flex-shrink: 0;
+        }
+
+        footer div img {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div>
+            <img src="img0.png">
+        </div>
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">Shop</a></li>
+            <li><a href="">Exit</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section>
+            <div>
+                <img id="myImg">
+            </div>
+
+            <div>
+                <h1 id="myTit"></h1>
+                <p id="myP"></p>
+            </div>
+
+        </section>
+        <footer>
+
+        </footer>
+    </main>
+
+    <script src="text.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Uno</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        main {
+            background-color: yellow;
+            display: grid;
+            height: 70vh;
+            width: 50%;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+                'b1 b2' 'b3 b3';
+        }
+
+        section {
+            grid-area: b3;
+            width: 100%;
+            background-color: skyblue;
+        }
+
+        .carta {
+            width: 100px;
+            height: 200px;
+            background-color: grey;
+        }
+
+        main div:nth-child(1) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            width: 80%;
+            height: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+
+        <div class="carta">
+            <button onClick="pesca()">Pesca</button>
+        </div>
+
+        <div class="carta">
+            <p></p>
+        </div>
+
+        <section>
+
+        </section>
+
+
+    </main>
+
+    <script>
+        let colors = ['red', 'blue', 'yellow', 'green'];
+        let mano = [];
+
+
+        function pesca() {
+            console.log(11);
+            const mySec = document.getElementsByTagName('section')[0];
+            mySec.innerHTML = '';
+            mano.push({ nome: 'elisa' });
+            console.log(mano[0].nome);
+        }
+
+
+    </script>
+</body>
+
+</html>

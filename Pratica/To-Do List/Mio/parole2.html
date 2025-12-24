@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1'>
+		<title>Parole2</title>
+		<style>
+		
+		</style>
+	</head>
+	<body>
+		
+		<textarea></textarea>	
+		<button onClick='invia()'>invia</button>
+		<p></p>
+	<script>
+		
+		
+		
+		function invia(){
+			let myText = document.getElementsByTagName('textarea')[0].value;
+			myText = myText.split(',').map(item => item.trim());
+			let listLett = [];
+			console.log(myText.length);
+			for(element of myText){
+				listLett.push(element[0]);
+				console.log(element[0]);
+			}
+			listLett = [...new Set(listLett)];
+			listLett.sort();
+			
+			const myP = document.getElementsByTagName('p')[0];
+			myP.textContent = listLett;
+			
+			
+		}
+		
+		function start(){
+			let myText = document.getElementsByTagName('textarea')[0];
+			let par = ['londra','parigi','lollo','ratto'];
+			myText.value = par;
+			invia();
+		}	
+		
+		
+		start();
+	</script>
+	</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1'>
+		<title>Crea</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				box-sizing:border-box;
+			}
+			button{
+				height: 100px;
+				width: 100px;
+			}
+			main{
+				height: auto;
+				width: 50%;
+				display: flex;
+				gap: 1rem;
+				background-color: gray;
+				padding: 1rem;
+				flex-shrink: 0;
+				flex-wrap:wrap;
+			}
+			.card{
+				height: 100px;
+				width: 100px;
+			}
+			
+		
+		</style>
+	</head>
+	<body>
+			
+		<button onClick='crea()'>Crea</button>
+		<button onClick='distruggi()'>Distruggi</button>
+		
+		<main id='container'>
+			
+		</main>
+	
+		<script>
+			function Card(num, color){
+				this.color = color;
+				this.num= num;
+			}
+		
+			let listCard = [];
+			let num=0;
+			let colors = ['red','blue','orange','pink'];
+		
+			function crea(){
+				
+				let numRand = Math.floor(Math.random()*4);
+				let col = colors[numRand];
+				
+				num++;
+				listCard.push(new Card(num,col));
+				
+				aggiorna();
+			}
+			
+			function distruggi(){
+				listCard.pop();
+				
+				aggiorna();
+			}
+			
+			function aggiorna(){
+				const myCont = document.getElementById('container');
+				myCont.innerHTML = '';
+				
+				
+				for(i in listCard){
+					const myCard = document.createElement('div');
+					myCard.className = 'card';
+					myCard.style.backgroundColor = listCard[i].color;
+					myCard.textContent = listCard[i].num;
+					myCont.appendChild(myCard);
+				}
+			}
+			
+		</script>
+	</body>
+</html>
